@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PortfolioService } from '../../services/portfolio.service';
@@ -20,7 +20,7 @@ interface StatCounter {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule, NgOptimizedImage],
+  imports: [CommonModule, RouterModule, HttpClientModule],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

@@ -1,258 +1,398 @@
-<!-- Annexes Request Form Section -->
-<section id="annexes-request" class="annexes-request section">
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Demande de Formation</h2>
-    <p>Remplissez le formulaire ci-dessous pour votre demande<br></p>
+<!-- Annexes Request Hero -->
+<section class="relative py-20 overflow-hidden" style="background-color: #004f89; padding-top: 120px;">
+  <!-- Decorative Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.2);"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.1);"></div>
   </div>
-
-  <div class="container">
-    <!-- Back Button -->
-    <div class="mb-4" data-aos="fade-up">
-      <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
-        <i class="bi bi-arrow-left me-2"></i>
-        Retour aux formations
-      </button>
+  
+  <div class="container mx-auto px-6 relative z-10 text-center" style="max-width: 1280px;">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded mb-6" 
+         style="background-color: rgba(255, 255, 255, 0.1); border-radius: 0.25rem; backdrop-filter: blur(10px);">
+      <i class="bi bi-send-fill" style="color: #d2e4ff;"></i>
+      <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #d2e4ff; text-transform: uppercase;">
+        Formation Request
+      </span>
     </div>
+    
+    <!-- Title -->
+    <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 16px;">
+      Demande de Formation
+    </h1>
+    
+    <!-- Subtitle -->
+    <p class="max-w-3xl mx-auto" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: rgba(255, 255, 255, 0.9);">
+      Soumettez votre demande pour un programme de formation sur mesure. Notre équipe pédagogique évaluera vos besoins et vous proposera un devis détaillé.
+    </p>
+  </div>
+</section>
 
-    <!-- Success Message -->
-    <div *ngIf="success" class="alert alert-success text-center" data-aos="fade-up" role="alert">
-      <i class="bi bi-check-circle-fill me-2"></i>
-      <strong>Demande envoyée avec succès !</strong>
-      <p class="mb-0 mt-2">Nous vous contacterons dans les plus brefs délais. Redirection en cours...</p>
-    </div>
+<!-- Main Content -->
+<section class="py-20" style="background-color: #f9f9fc;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    <div class="max-w-4xl mx-auto">
 
-    <!-- Error Message -->
-    <div *ngIf="error && !success" class="alert alert-danger" role="alert">
-      <i class="bi bi-exclamation-triangle me-2"></i>
-      {{ error }}
-    </div>
-
-    <!-- Request Form -->
-    <div *ngIf="!success" class="row justify-content-center" data-aos="fade-up">
-      <div class="col-lg-8">
-        <div class="form-container" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-          
-          <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-            
-            <!-- Part 1: Company Information -->
-            <div class="form-section mb-5">
-              <h4 class="section-title mb-4">
-                <i class="bi bi-building me-2 text-primary"></i>
-                Informations de l'entreprise
-              </h4>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="companyName" class="form-label">
-                    Nom de l'entreprise <span class="text-danger">*</span>
-                  </label>
-                  <input 
-                    type="text" 
-                    id="companyName"
-                    class="form-control"
-                    [class.is-invalid]="isFieldInvalid('companyName')"
-                    formControlName="companyName"
-                    placeholder="Nom de votre entreprise">
-                  <div *ngIf="isFieldInvalid('companyName')" class="invalid-feedback">
-                    {{ getFieldError('companyName') }}
-                  </div>
-                </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="email" class="form-label">
-                    Email <span class="text-danger">*</span>
-                  </label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    class="form-control"
-                    [class.is-invalid]="isFieldInvalid('email')"
-                    formControlName="email"
-                    placeholder="contact@entreprise.com">
-                  <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
-                    {{ getFieldError('email') }}
-                  </div>
-                </div>
-                
-                <div class="col-12 mb-3">
-                  <label for="phone" class="form-label">Téléphone</label>
-                  <input 
-                    type="tel" 
-                    id="phone"
-                    class="form-control"
-                    formControlName="phone"
-                    placeholder="+33 1 23 45 67 89">
-                </div>
-              </div>
-            </div>
-
-            <!-- Part 2: Training Selection -->
-            <div class="form-section mb-5">
-              <h4 class="section-title mb-4">
-                <i class="bi bi-mortarboard me-2 text-primary"></i>
-                Type de formation
-              </h4>
-              
-              <!-- Training Type Selection -->
-              <div class="mb-4">
-                <div class="form-check mb-3">
-                  <input 
-                    class="form-check-input" 
-                    type="radio" 
-                    id="existingTraining"
-                    [value]="false"
-                    formControlName="isCustom"
-                    (change)="onTrainingTypeChange()">
-                  <label class="form-check-label" for="existingTraining">
-                    <strong>Formation existante</strong>
-                    <br><small class="text-muted">Choisir parmi nos formations disponibles</small>
-                  </label>
-                </div>
-                
-                <div class="form-check">
-                  <input 
-                    class="form-check-input" 
-                    type="radio" 
-                    id="customTraining"
-                    [value]="true"
-                    formControlName="isCustom"
-                    (change)="onTrainingTypeChange()">
-                  <label class="form-check-label" for="customTraining">
-                    <strong>Formation sur mesure</strong>
-                    <br><small class="text-muted">Décrivez vos besoins spécifiques</small>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Existing Formation Selection -->
-              <div *ngIf="requestForm.get('isCustom')?.value === false" class="mb-3">
-                <label for="formationId" class="form-label">
-                  Sélectionner une formation <span class="text-danger">*</span>
-                </label>
-                <select 
-                  id="formationId"
-                  class="form-select"
-                  [class.is-invalid]="isFieldInvalid('formationId')"
-                  formControlName="formationId">
-                  <option value="">-- Choisir une formation --</option>
-                  <optgroup *ngFor="let group of getFormationsByTheme() | keyvalue" [label]="group.key">
-                    <option *ngFor="let formation of group.value" [value]="formation.id">
-                      {{ formation.title }} - {{ formation.price | currency:'EUR':'symbol':'1.0-0' }}
-                    </option>
-                  </optgroup>
-                </select>
-                <div *ngIf="isFieldInvalid('formationId')" class="invalid-feedback">
-                  {{ getFieldError('formationId') }}
-                </div>
-              </div>
-
-              <!-- Custom Training Description -->
-              <div *ngIf="requestForm.get('isCustom')?.value === true" class="mb-3">
-                <label for="customDescription" class="form-label">
-                  Décrivez la formation souhaitée <span class="text-danger">*</span>
-                </label>
-                <textarea 
-                  id="customDescription"
-                  class="form-control"
-                  [class.is-invalid]="isFieldInvalid('customDescription')"
-                  formControlName="customDescription"
-                  rows="4"
-                  placeholder="Décrivez en détail le type de formation que vous recherchez, les compétences à acquérir, les objectifs, etc."></textarea>
-                <div *ngIf="isFieldInvalid('customDescription')" class="invalid-feedback">
-                  {{ getFieldError('customDescription') }}
-                </div>
-              </div>
-            </div>
-
-            <!-- Part 3: Common Fields -->
-            <div class="form-section mb-5">
-              <h4 class="section-title mb-4">
-                <i class="bi bi-gear me-2 text-primary"></i>
-                Détails de la formation
-              </h4>
-              
-              <div class="row">
-                <div class="col-md-4 mb-3">
-                  <label for="numParticipants" class="form-label">
-                    Nombre de participants <span class="text-danger">*</span>
-                  </label>
-                  <input 
-                    type="number" 
-                    id="numParticipants"
-                    class="form-control"
-                    [class.is-invalid]="isFieldInvalid('numParticipants')"
-                    formControlName="numParticipants"
-                    min="1"
-                    max="500">
-                  <div *ngIf="isFieldInvalid('numParticipants')" class="invalid-feedback">
-                    {{ getFieldError('numParticipants') }}
-                  </div>
-                </div>
-                
-                <div class="col-md-4 mb-3">
-                  <label for="modality" class="form-label">
-                    Modalité <span class="text-danger">*</span>
-                  </label>
-                  <select 
-                    id="modality"
-                    class="form-select"
-                    [class.is-invalid]="isFieldInvalid('modality')"
-                    formControlName="modality">
-                    <option value="">-- Choisir une modalité --</option>
-                    <option *ngFor="let option of modalityOptions" [value]="option.value">
-                      {{ option.label }}
-                    </option>
-                  </select>
-                  <div *ngIf="isFieldInvalid('modality')" class="invalid-feedback">
-                    {{ getFieldError('modality') }}
-                  </div>
-                </div>
-                
-                <div class="col-md-4 mb-3">
-                  <label for="preferredDate" class="form-label">
-                    Période souhaitée <span class="text-danger">*</span>
-                  </label>
-                  <input 
-                    type="text" 
-                    id="preferredDate"
-                    class="form-control"
-                    [class.is-invalid]="isFieldInvalid('preferredDate')"
-                    formControlName="preferredDate"
-                    placeholder="Ex: Janvier 2024, Q1 2024, etc.">
-                  <div *ngIf="isFieldInvalid('preferredDate')" class="invalid-feedback">
-                    {{ getFieldError('preferredDate') }}
-                  </div>
-                </div>
-              </div>
-              
-              <div class="mb-3">
-                <label for="notes" class="form-label">Notes / Attentes particulières</label>
-                <textarea 
-                  id="notes"
-                  class="form-control"
-                  formControlName="notes"
-                  rows="3"
-                  placeholder="Informations complémentaires, attentes particulières, contraintes spécifiques..."></textarea>
-              </div>
-            </div>
-
-            <!-- Submit Section -->
-            <div class="text-center">
-              <button 
-                type="submit" 
-                class="btn btn-primary btn-lg px-5"
-                [disabled]="isSubmitting">
-                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status">
-                  <span class="visually-hidden">Envoi en cours...</span>
-                </span>
-                <i *ngIf="!isSubmitting" class="bi bi-send me-2"></i>
-                {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande' }}
-              </button>
-            </div>
-          </form>
+      <!-- Success Message -->
+      <div *ngIf="success" 
+           class="p-6 rounded flex items-center gap-3 mb-8" 
+           style="background-color: #d4f4dd; border-radius: 0.5rem;">
+        <i class="bi bi-check-circle-fill" style="font-size: 28px; color: #1b5e20;"></i>
+        <div>
+          <strong style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #1b5e20;">
+            Demande envoyée avec succès !
+          </strong>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #1b5e20; margin-top: 4px;">
+            Nous vous contacterons dans les plus brefs délais. Redirection en cours...
+          </p>
         </div>
       </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error && !success" 
+           class="p-6 rounded flex items-center gap-3 mb-8" 
+           style="background-color: #ffdad6; border-radius: 0.5rem;">
+        <i class="bi bi-exclamation-triangle-fill" style="font-size: 28px; color: #ba1a1a;"></i>
+        <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #93000a;">
+          {{ error }}
+        </span>
+      </div>
+
+      <!-- Form Container -->
+      <form *ngIf="!success" [formGroup]="requestForm" (ngSubmit)="onSubmit()" class="space-y-8">
+
+        <!-- Section 1: Informations Entreprise -->
+        <div class="p-8 rounded-lg space-y-6" 
+             style="background-color: #ffffff; border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          
+          <!-- Section Header -->
+          <div class="flex items-center gap-3 pb-6" style="border-bottom: 1px solid #e2e2e5;">
+            <div class="w-12 h-12 rounded flex items-center justify-center" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-building-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e;">
+              Informations Entreprise
+            </h2>
+          </div>
+
+          <!-- Form Fields Grid -->
+          <div class="grid grid-cols-2 gap-6">
+            <!-- Nom de l'entreprise -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Nom de l'entreprise
+              </label>
+              <input 
+                type="text" 
+                formControlName="companyName"
+                class="w-full px-4 py-3 rounded border outline-none transition-all"
+                [class.border-red-500]="isFieldInvalid('companyName')"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                placeholder="Ex: Tech Solutions Inc.">
+              <div *ngIf="isFieldInvalid('companyName')" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+                {{ getFieldError('companyName') }}
+              </div>
+            </div>
+
+            <!-- Nom du contact -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Nom du contact
+              </label>
+              <input 
+                type="text" 
+                formControlName="contactName"
+                class="w-full px-4 py-3 rounded border outline-none transition-all"
+                [class.border-red-500]="isFieldInvalid('contactName')"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                placeholder="Jean Dupont">
+              <div *ngIf="isFieldInvalid('contactName')" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+                {{ getFieldError('contactName') }}
+              </div>
+            </div>
+
+            <!-- Email professionnel -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Email professionnel
+              </label>
+              <input 
+                type="email" 
+                formControlName="email"
+                class="w-full px-4 py-3 rounded border outline-none transition-all"
+                [class.border-red-500]="isFieldInvalid('email')"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                placeholder="jean.dupont@entreprise.com">
+              <div *ngIf="isFieldInvalid('email')" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+                {{ getFieldError('email') }}
+              </div>
+            </div>
+
+            <!-- Téléphone -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Téléphone
+              </label>
+              <input 
+                type="tel" 
+                formControlName="phone"
+                class="w-full px-4 py-3 rounded border outline-none transition-all"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                placeholder="+33 1 23 45 67 89">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Type de Formation -->
+        <div class="p-8 rounded-lg space-y-6" 
+             style="background-color: #ffffff; border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          
+          <!-- Section Header -->
+          <div class="flex items-center gap-3 pb-6" style="border-bottom: 1px solid #e2e2e5;">
+            <div class="w-12 h-12 rounded flex items-center justify-center" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-book-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e;">
+              Type de Formation
+            </h2>
+          </div>
+
+          <!-- Label -->
+          <div class="space-y-4">
+            <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e;">
+              Sélectionnez le format souhaité
+            </p>
+
+            <!-- Radio Cards Grid -->
+            <div class="grid grid-cols-3 gap-6">
+              <!-- Présentiel -->
+              <label class="cursor-pointer">
+                <input 
+                  type="radio" 
+                  value="IN_PERSON"
+                  formControlName="modality"
+                  class="hidden">
+                <div class="p-6 rounded-lg border-2 transition-all hover:scale-105"
+                     [style]="requestForm.get('modality')?.value === 'IN_PERSON' 
+                       ? 'border-color: #0067b1; background-color: #d2e4ff; border-radius: 0.5rem;' 
+                       : 'border-color: #e2e2e5; background-color: #ffffff; border-radius: 0.5rem;'">
+                  <div class="mb-3" style="font-size: 28px; color: #0067b1;">
+                    <i class="bi bi-people-fill"></i>
+                  </div>
+                  <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+                    Présentiel
+                  </h4>
+                  <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+                    Formation dans vos locaux ou dans un centre agréé.
+                  </p>
+                </div>
+              </label>
+
+              <!-- Distanciel -->
+              <label class="cursor-pointer">
+                <input 
+                  type="radio" 
+                  value="REMOTE"
+                  formControlName="modality"
+                  class="hidden">
+                <div class="p-6 rounded-lg border-2 transition-all hover:scale-105"
+                     [style]="requestForm.get('modality')?.value === 'REMOTE' 
+                       ? 'border-color: #0067b1; background-color: #d2e4ff; border-radius: 0.5rem;' 
+                       : 'border-color: #e2e2e5; background-color: #ffffff; border-radius: 0.5rem;'">
+                  <div class="mb-3" style="font-size: 28px; color: #0067b1;">
+                    <i class="bi bi-display"></i>
+                  </div>
+                  <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+                    Distanciel
+                  </h4>
+                  <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+                    Classes virtuelles interactives via visioconférence.
+                  </p>
+                </div>
+              </label>
+
+              <!-- Hybride -->
+              <label class="cursor-pointer">
+                <input 
+                  type="radio" 
+                  value="HYBRID"
+                  formControlName="modality"
+                  class="hidden">
+                <div class="p-6 rounded-lg border-2 transition-all hover:scale-105"
+                     [style]="requestForm.get('modality')?.value === 'HYBRID' 
+                       ? 'border-color: #0067b1; background-color: #d2e4ff; border-radius: 0.5rem;' 
+                       : 'border-color: #e2e2e5; background-color: #ffffff; border-radius: 0.5rem;'">
+                  <div class="mb-3" style="font-size: 28px; color: #0067b1;">
+                    <i class="bi bi-layers"></i>
+                  </div>
+                  <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+                    Hybride
+                  </h4>
+                  <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+                    Combinaison de présentiel et de modules e-learning.
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Additional Fields -->
+          <div class="grid grid-cols-3 gap-6 pt-4">
+            <!-- Thématique Principale -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Thématique Principale
+              </label>
+              <select 
+                formControlName="theme"
+                class="w-full px-4 py-3 rounded border outline-none"
+                [class.border-red-500]="isFieldInvalid('theme')"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem; color: #1a1c1e;">
+                <option value="">Sélectionnez un domaine...</option>
+                <optgroup *ngFor="let group of getFormationsByTheme() | keyvalue" [label]="group.key">
+                  <option *ngFor="let formation of group.value" [value]="formation.id">
+                    {{ formation.title }}
+                  </option>
+                </optgroup>
+              </select>
+              <div *ngIf="isFieldInvalid('theme')" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+                {{ getFieldError('theme') }}
+              </div>
+            </div>
+
+            <!-- Nombre estimé de participants -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Nombre estimé de participants
+              </label>
+              <input 
+                type="number" 
+                formControlName="numParticipants"
+                class="w-full px-4 py-3 rounded border outline-none transition-all"
+                [class.border-red-500]="isFieldInvalid('numParticipants')"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                placeholder="Ex: 15"
+                min="1">
+              <div *ngIf="isFieldInvalid('numParticipants')" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+                {{ getFieldError('numParticipants') }}
+              </div>
+            </div>
+
+            <!-- Date préférée -->
+            <div class="space-y-2">
+              <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+                Date préférée
+              </label>
+              <input 
+                type="date" 
+                formControlName="preferredDate"
+                class="w-full px-4 py-3 rounded border outline-none transition-all"
+                [class.border-red-500]="isFieldInvalid('preferredDate')"
+                style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';">
+              <div *ngIf="isFieldInvalid('preferredDate')" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+                {{ getFieldError('preferredDate') }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Détails de la demande -->
+        <div class="p-8 rounded-lg space-y-6" 
+             style="background-color: #ffffff; border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          
+          <!-- Section Header -->
+          <div class="flex items-center gap-3 pb-6" style="border-bottom: 1px solid #e2e2e5;">
+            <div class="w-12 h-12 rounded flex items-center justify-center" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-file-text-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e;">
+              Détails de la demande
+            </h2>
+          </div>
+
+          <!-- Textarea -->
+          <div class="space-y-2">
+            <label style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block;">
+              Objectifs visés & contexte
+            </label>
+            <textarea 
+              formControlName="notes"
+              class="w-full px-4 py-3 rounded border outline-none transition-all resize-none"
+              [class.border-red-500]="isFieldInvalid('notes')"
+              style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+              onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+              onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+              rows="6"
+              placeholder="Décrivez brièvement les objectifs de cette formation et le contexte de votre équipe..."></textarea>
+            <div *ngIf="isFieldInvalid('notes')" 
+                 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a;">
+              {{ getFieldError('notes') }}
+            </div>
+          </div>
+
+          <!-- Checkbox -->
+          <div class="flex items-center gap-3 pt-2">
+            <input 
+              type="checkbox" 
+              id="agree"
+              formControlName="agreeToTerms"
+              class="w-5 h-5 rounded"
+              style="border-color: #c1c7d3;">
+            <label for="agree" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              Je souhaite être recontacté en priorité (urgent)
+            </label>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex justify-end gap-4 pt-8">
+          <button 
+            type="button"
+            (click)="goBack()"
+            class="px-8 py-3 rounded font-bold text-sm transition-all hover:scale-105"
+            style="background-color: transparent; color: #0067b1; border: 2px solid #c1c7d3; font-family: 'Hanken Grotesk', sans-serif; font-weight: 600; border-radius: 0.25rem;">
+            Annuler
+          </button>
+          <button 
+            type="submit"
+            [disabled]="isSubmitting || !requestForm.valid"
+            class="px-8 py-3 rounded font-bold text-sm transition-all hover:scale-105"
+            [style]="isSubmitting || !requestForm.valid
+              ? 'background-color: #c1c7d3; color: #ffffff; font-family: Hanken Grotesk, sans-serif; font-weight: 600; border-radius: 0.25rem;' 
+              : 'background-color: #e30613; color: #ffffff; font-family: Hanken Grotesk, sans-serif; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);'">
+            <span *ngIf="!isSubmitting">
+              <i class="bi bi-send me-2"></i>Envoyer la demande
+            </span>
+            <span *ngIf="isSubmitting" class="inline-flex items-center gap-2">
+              <span class="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              Envoi en cours...
+            </span>
+          </button>
+        </div>
+
+      </form>
+
     </div>
   </div>
 </section>

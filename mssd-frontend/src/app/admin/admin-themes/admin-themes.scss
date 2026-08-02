@@ -19,17 +19,17 @@ $admin-radius: 12px;
 }
 
 .btn-primary-admin {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.55rem 1.2rem; background: $admin-primary; color: $admin-white;
-  border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.5rem 1rem; background: $admin-primary; color: $admin-white;
+  border: none; border-radius: 6px; font-size: 0.82rem; font-weight: 600;
   cursor: pointer; transition: background 0.2s, transform 0.15s;
   &:hover { background: color.adjust($admin-primary, $lightness: -8%); transform: translateY(-1px); }
   &:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 }
 
 .btn-cancel {
-  padding: 0.55rem 1.2rem; background: $admin-body-bg; color: $admin-text-muted;
-  border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  padding: 0.5rem 1rem; background: $admin-body-bg; color: $admin-text-muted;
+  border: none; border-radius: 6px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
   &:hover { background: color.adjust($admin-body-bg, $lightness: -5%); }
 }
 
@@ -133,56 +133,134 @@ $admin-radius: 12px;
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.45);
   display: flex; align-items: center; justify-content: center;
-  z-index: 1050; padding: 1rem; animation: fadeIn 0.2s ease;
+  z-index: 1050; padding: 0.5rem; animation: fadeIn 0.2s ease;
+  overflow-y: auto;
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal-card {
   background: $admin-white; border-radius: $admin-radius; width: 100%; max-width: 520px;
-  max-height: 85vh; display: flex; flex-direction: column;
+  max-height: 95vh; display: flex; flex-direction: column;
   box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: slideUp 0.25s ease;
+  margin: auto;
   &.modal-lg { max-width: 620px; }
 }
 @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 .modal-card-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 1.5rem; border-bottom: 1px solid $admin-border;
-  h5 { font-size: 1rem; font-weight: 600; color: $admin-text; margin: 0; display: flex; align-items: center; gap: 0.5rem; }
-  .modal-close { background: none; border: none; font-size: 1.5rem; color: $admin-text-muted; cursor: pointer; &:hover { color: $admin-danger; } }
+  padding: 0.8rem 1.2rem; border-bottom: 1px solid $admin-border;
+  flex-shrink: 0;
+  h5 { font-size: 0.95rem; font-weight: 600; color: $admin-text; margin: 0; display: flex; align-items: center; gap: 0.5rem; }
+  .modal-close { background: none; border: none; font-size: 1.4rem; color: $admin-text-muted; cursor: pointer; line-height: 1; padding: 0; &:hover { color: $admin-danger; } }
 }
-.modal-card-body { padding: 1.5rem; overflow-y: auto; }
+.modal-card-body { 
+  padding: 1rem 1.2rem; 
+  overflow-y: auto; 
+  flex: 1;
+  min-height: 0;
+}
 .modal-card-footer {
   display: flex; align-items: center; justify-content: flex-end;
-  gap: 0.75rem; padding: 1rem 1.5rem; border-top: 1px solid $admin-border;
+  gap: 0.6rem; padding: 0.8rem 1.2rem; border-top: 1px solid $admin-border;
+  flex-shrink: 0;
+  background: $admin-white;
 }
 
 // Form
 .form-group {
   display: flex; flex-direction: column;
   label {
-    font-size: 0.8rem; font-weight: 600; color: $admin-text;
-    margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.3px;
+    font-size: 0.75rem; font-weight: 600; color: $admin-text;
+    margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.3px;
   }
   input, textarea {
-    padding: 0.55rem 0.8rem; border: 1.5px solid $admin-border; border-radius: 8px;
-    font-size: 0.88rem; background: $admin-white; color: $admin-text;
+    padding: 0.45rem 0.7rem; border: 1.5px solid $admin-border; border-radius: 6px;
+    font-size: 0.85rem; background: $admin-white; color: $admin-text;
     transition: border-color 0.2s, box-shadow 0.2s;
-    &:focus { outline: none; border-color: $admin-primary; box-shadow: 0 0 0 3px rgba($admin-primary, 0.1); }
+    &:focus { outline: none; border-color: $admin-primary; box-shadow: 0 0 0 2px rgba($admin-primary, 0.1); }
     &::placeholder { color: color.adjust($admin-text-muted, $lightness: 15%); }
     &.input-error { border-color: $admin-danger; }
   }
-  textarea { resize: vertical; min-height: 80px; }
+  textarea { resize: vertical; min-height: 60px; }
 }
-.form-full { margin-bottom: 1rem; }
-.form-hint { font-size: 0.75rem; color: $admin-text-muted; margin-top: 0.25rem; }
-.field-error { font-size: 0.75rem; color: $admin-danger; margin-top: 0.25rem; }
+.form-full { margin-bottom: 0.75rem; }
+.form-hint { font-size: 0.7rem; color: $admin-text-muted; margin-top: 0.2rem; }
+.field-error { font-size: 0.7rem; color: $admin-danger; margin-top: 0.2rem; }
 
 .form-check-row {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   .checkbox-label {
-    display: flex; align-items: center; gap: 0.5rem;
-    font-size: 0.88rem; font-weight: 500; color: $admin-text; cursor: pointer;
-    input[type="checkbox"] { width: 16px; height: 16px; accent-color: $admin-primary; cursor: pointer; }
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.8rem; font-weight: 500; color: $admin-text; cursor: pointer;
+    input[type="checkbox"] { width: 15px; height: 15px; accent-color: $admin-primary; cursor: pointer; }
   }
 }
+
+// File Upload
+.file-upload-container {
+  margin-top: 0.5rem;
+}
+
+.file-upload-empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 1.2rem 0.8rem; border: 2px dashed $admin-border; border-radius: 6px;
+  background: color.adjust($admin-body-bg, $lightness: 2%);
+  cursor: pointer; transition: all 0.2s;
+  
+  i { font-size: 1.3rem; color: $admin-text-muted; margin-bottom: 0.3rem; }
+  span { font-size: 0.8rem; font-weight: 500; color: $admin-text; margin-bottom: 0.15rem; }
+  small { font-size: 0.68rem; color: $admin-text-muted; }
+  
+  &:hover {
+    border-color: $admin-primary;
+    background: $admin-primary-light;
+    i, span { color: $admin-primary; }
+  }
+}
+
+.file-upload-preview {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0.7rem; border: 1px solid $admin-border; border-radius: 6px;
+  background: $admin-white;
+  
+  img {
+    width: 100%; max-width: 120px; height: auto;
+    max-height: 80px; object-fit: contain;
+    border-radius: 4px; margin-bottom: 0.6rem;
+  }
+  
+  .file-upload-actions {
+    display: flex; gap: 0.4rem;
+  }
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem; font-size: 0.8rem; font-weight: 600;
+  border: none; border-radius: 6px; cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  
+  &.btn-secondary {
+    background: $admin-body-bg; color: $admin-text-muted;
+    &:hover { background: color.adjust($admin-body-bg, $lightness: -5%); }
+  }
+  
+  &.btn-danger {
+    background: #fef2f2; color: $admin-danger;
+    &:hover { background: color.adjust(#fef2f2, $lightness: -3%); }
+  }
+}
+
+.spinner-sm {
+  width: 14px; height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+.inline-flex { display: inline-flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 0.5rem; }

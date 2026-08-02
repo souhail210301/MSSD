@@ -1,128 +1,213 @@
-<!-- Blog Hero -->
-<section class="blog-hero">
-  <div class="container">
-    <h1 class="blog-hero-title">Blog</h1>
-    <p class="blog-hero-subtitle">Découvrez nos événements passés, actualités et réalisations</p>
+﻿<!-- Blog Hero -->
+<main class="bg-[#f9f9fc]" style="padding-top: 80px;">
+
+<!-- Hero Section -->
+<section class="py-20" style="background-color: #004f89;">
+  <div class="container mx-auto px-6 text-center" style="max-width: 1280px;">
+    <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #d2e4ff; text-transform: uppercase; margin-bottom: 16px;">
+      Insights & Leadership Journal
+    </div>
+    <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 16px;">
+      Expert perspectives on management excellence and sales performance
+    </h1>
+    
+    <!-- Search Bar -->
+    <div class="max-w-2xl mx-auto mt-8">
+      <div class="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded px-4 py-3" style="border-radius: 0.25rem;">
+        <i class="bi bi-search text-lg" style="color: rgba(255, 255, 255, 0.7);"></i>
+        <input 
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          type="text" 
+          placeholder="Search articles..." 
+          class="flex-1 bg-transparent text-white placeholder-white placeholder-opacity-70 ml-3 outline-none"
+          style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px;">
+        <button class="bg-white text-primary px-4 py-2 rounded font-semibold text-sm transition-all hover:bg-opacity-90" 
+                style="color: #004f89; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif;">
+          Search
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Blog Content -->
-<section class="blog-section">
-  <div class="container">
+<section class="py-20" style="background-color: #ffffff;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+
     <!-- Loading -->
-    <div *ngIf="loading" class="loading-state">
-      <div class="spinner"></div>
-      <p>Chargement des articles...</p>
+    <div *ngIf="loading" class="flex flex-col items-center justify-center py-20">
+      <div class="w-16 h-16 border-4 rounded-full animate-spin" style="border-color: #e2e2e5; border-top-color: #0067b1;"></div>
+      <p class="mt-6" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #414751;">Loading articles...</p>
     </div>
 
     <!-- Error -->
-    <div *ngIf="error" class="error-state">
-      <i class="bi bi-exclamation-triangle-fill"></i>
-      <p>{{ error }}</p>
-    </div>
-
-    <!-- Search & Filters -->
-    <div *ngIf="!loading && !error && blogs.length > 0" class="blog-controls">
-      <div class="row gy-3">
-        <div class="col-md-6">
-          <div class="control-input-wrapper">
-            <i class="bi bi-search"></i>
-            <input type="text" class="control-input" placeholder="Rechercher un article..."
-                   [(ngModel)]="searchTerm" (input)="onSearchChange()">
-          </div>
-        </div>
-        <div class="col-md-3">
-          <select class="control-select" [(ngModel)]="sortBy" (change)="onSortChange()">
-            <option value="date">Plus récent</option>
-            <option value="title">Titre (A-Z)</option>
-            <option value="type">Type</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <select class="control-select" [(ngModel)]="filterType" (change)="onFilterChange()">
-            <option value="all">Tous</option>
-            <option value="video">Vidéos</option>
-            <option value="image">Images</option>
-            <option value="text">Texte</option>
-          </select>
-        </div>
-      </div>
-      <p class="results-count">
-        <i class="bi bi-info-circle"></i>
-        {{ totalItems }} article(s) trouvé(s)
-        <span *ngIf="searchTerm"> pour "{{ searchTerm }}"</span>
-      </p>
+    <div *ngIf="error" class="rounded-lg p-12 text-center" style="background-color: #ffdad6; border-radius: 0.5rem;">
+      <i class="bi bi-exclamation-triangle-fill text-5xl mb-4 block" style="color: #ba1a1a;"></i>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #93000a;">{{ error }}</p>
     </div>
 
     <!-- Empty -->
-    <div *ngIf="!loading && !error && blogs.length === 0" class="empty-state">
-      <i class="bi bi-journal-x"></i>
-      <h4>Aucun article disponible</h4>
-      <p>Les articles de blog seront bientôt disponibles.</p>
+    <div *ngIf="!loading && !error && blogs.length === 0" class="rounded-lg p-12 text-center" style="background-color: #f2f7fa; border-radius: 0.5rem;">
+      <i class="bi bi-journal-x text-5xl mb-4 block" style="color: #c1c7d3;"></i>
+      <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+        No Articles Available
+      </h4>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #414751;">
+        Check back soon for new insights.
+      </p>
     </div>
 
-    <!-- No Results -->
-    <div *ngIf="!loading && !error && blogs.length > 0 && filteredBlogs.length === 0" class="empty-state">
-      <i class="bi bi-search"></i>
-      <h4>Aucun résultat trouvé</h4>
-      <p>Essayez de modifier vos critères.</p>
-      <button class="btn-action" (click)="searchTerm = ''; filterType = 'all'; onSearchChange()">
-        <i class="bi bi-arrow-clockwise"></i> Réinitialiser
-      </button>
-    </div>
-
-    <!-- Blog Grid -->
-    <div *ngIf="!loading && !error && paginatedBlogs.length > 0" class="row gy-4">
-      <div class="col-lg-4 col-md-6" *ngFor="let blog of paginatedBlogs">
-        <article class="blog-card" [class.video-card]="blog.youtubeUrl" (click)="onBlogClick(blog)">
-          <!-- Image -->
-          <div class="blog-card-media" *ngIf="!blog.youtubeUrl && blog.imageUrl">
-            <img [src]="getImageUrl(blog)" [alt]="blog.title"
-                 onerror="this.src='assets/img/blog/blog-default.jpg'">
+    <!-- Featured Article -->
+    <div class="mb-16" *ngIf="!loading && !error && paginatedBlogs.length > 0">
+      <div class="grid lg:grid-cols-2 gap-0 rounded-lg overflow-hidden" style="box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04); border: 1px solid #e2e2e5;">
+        
+        <!-- Featured Image -->
+        <div class="relative h-80 lg:h-auto overflow-hidden" (click)="onBlogClick(paginatedBlogs[0])" style="cursor: pointer;">
+          <img [src]="getImageUrl(paginatedBlogs[0])" 
+               [alt]="paginatedBlogs[0].title" 
+               class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+               *ngIf="paginatedBlogs[0].imageUrl && !paginatedBlogs[0].youtubeUrl">
+          <div class="absolute inset-0 flex items-center justify-center" style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%);"
+               *ngIf="!paginatedBlogs[0].imageUrl && !paginatedBlogs[0].youtubeUrl">
+            <i class="bi bi-newspaper text-6xl" style="color: rgba(255, 255, 255, 0.3);"></i>
           </div>
+          <div class="absolute top-6 left-6 px-3 py-1.5 rounded" style="background-color: #e30613; border-radius: 0.25rem;">
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #ffffff; text-transform: uppercase;">
+              Featured Insight
+            </span>
+          </div>
+        </div>
+        
+        <!-- Featured Content -->
+        <div class="p-10 flex flex-col justify-center" style="background-color: #ffffff;">
+          <div class="mb-4 flex items-center gap-3">
+            <span class="px-2.5 py-1 rounded text-xs font-semibold" style="background-color: #d2e4ff; color: #004f89; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif;">
+              Management
+            </span>
+            <div class="flex items-center gap-1 text-xs" style="color: #717782; font-family: 'Hanken Grotesk', sans-serif;">
+              <i class="bi bi-calendar3 text-xs"></i>
+              <span class="font-semibold">{{ formatDate(paginatedBlogs[0].publishDate!) }}</span>
+            </div>
+          </div>
+          <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 32px; font-weight: 600; line-height: 40px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px; cursor: pointer;"
+              (click)="onBlogClick(paginatedBlogs[0])">
+            {{ paginatedBlogs[0].title }}
+          </h2>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751; margin-bottom: 24px;">
+            {{ paginatedBlogs[0].description }}
+          </p>
+          <button (click)="onBlogClick(paginatedBlogs[0])" 
+                  class="inline-flex items-center gap-2 font-bold text-sm hover:opacity-80 transition-opacity" 
+                  style="color: #0067b1; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600;">
+            Read Article <i class="bi bi-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
-          <!-- Video indicator -->
-          <div class="blog-card-media video-media" *ngIf="blog.youtubeUrl">
-            <div class="video-placeholder">
-              <i class="bi bi-youtube"></i>
+    <!-- Latest Updates Section -->
+    <div *ngIf="!loading && !error && paginatedBlogs.length > 1">
+      <div class="flex items-center justify-between mb-12">
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 32px; font-weight: 600; line-height: 40px; letter-spacing: -0.01em; color: #1a1c1e;">
+          Latest Updates
+        </h3>
+        <!-- Filter Buttons -->
+        <div class="flex items-center gap-2">
+          <button (click)="filterType = 'all'; onFilterChange()"
+                  [class]="filterType === 'all' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700'"
+                  class="px-4 py-2 rounded text-sm font-semibold transition-all"
+                  style="font-family: 'Hanken Grotesk', sans-serif; border-radius: 0.25rem;">
+            All
+          </button>
+          <button (click)="filterType = 'video'; onFilterChange()"
+                  [class]="filterType === 'video' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700'"
+                  class="px-4 py-2 rounded text-sm font-semibold transition-all"
+                  style="font-family: 'Hanken Grotesk', sans-serif; border-radius: 0.25rem;">
+            <i class="bi bi-youtube mr-1"></i>Videos
+          </button>
+        </div>
+      </div>
+
+      <!-- Blog Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div *ngFor="let blog of paginatedBlogs.slice(1)" 
+             (click)="onBlogClick(blog)" 
+             class="group cursor-pointer bg-white rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1" 
+             style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          
+          <!-- Card Image -->
+          <div class="relative h-48 overflow-hidden" style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%);">
+            <img *ngIf="blog.imageUrl" 
+                 [src]="getImageUrl(blog)" 
+                 [alt]="blog.title" 
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div *ngIf="!blog.imageUrl" class="absolute inset-0 flex items-center justify-center">
+              <i class="bi bi-newspaper text-5xl" style="color: rgba(255, 255, 255, 0.3);"></i>
+            </div>
+            
+            <!-- Video Overlay -->
+            <div *ngIf="blog.youtubeUrl" class="absolute inset-0 flex items-center justify-center" style="background-color: rgba(0, 0, 0, 0.3);">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: rgba(255, 255, 255, 0.9); box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);">
+                <i class="bi bi-play-fill text-lg" style="color: #004f89;"></i>
+              </div>
+            </div>
+            
+            <!-- Icon Badge -->
+            <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: rgba(255, 255, 255, 0.9); box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
+              <i *ngIf="blog.youtubeUrl" class="bi bi-youtube text-sm" style="color: #0067b1;"></i>
+              <i *ngIf="!blog.youtubeUrl && blog.imageUrl" class="bi bi-image text-sm" style="color: #0067b1;"></i>
+              <i *ngIf="!blog.youtubeUrl && !blog.imageUrl" class="bi bi-file-text text-sm" style="color: #0067b1;"></i>
             </div>
           </div>
 
-          <!-- Content -->
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="meta-date">
-                <i class="bi bi-calendar3"></i> {{ formatDate(blog.publishDate!) }}
+          <!-- Card Body -->
+          <div class="p-6">
+            <!-- Metadata -->
+            <div class="mb-4 flex items-center justify-between">
+              <span class="px-2 py-1 rounded text-xs font-semibold" 
+                    [style]="blog.youtubeUrl ? 'background-color: #ffdad5; color: #930007; border-radius: 0.25rem;' : 'background-color: #d2e4ff; color: #004f89; border-radius: 0.25rem;'"
+                    style="font-family: 'Hanken Grotesk', sans-serif;">
+                {{ blog.youtubeUrl ? 'Webinar' : 'Insight' }}
               </span>
-              <span *ngIf="blog.youtubeUrl" class="meta-type video"><i class="bi bi-play-circle-fill"></i> Vidéo</span>
-              <span *ngIf="blog.imageUrl && !blog.youtubeUrl" class="meta-type image"><i class="bi bi-image"></i> Image</span>
+              <div class="flex items-center gap-1 text-xs" style="color: #717782; font-family: 'Hanken Grotesk', sans-serif;">
+                <i class="bi bi-calendar3 text-xs"></i>
+                <span class="font-semibold">{{ formatDate(blog.publishDate!) }}</span>
+              </div>
             </div>
 
-            <h3 class="blog-card-title">{{ blog.title }}</h3>
-            <p class="blog-card-excerpt">
-              {{ blog.description.length > 150 ? (blog.description | slice:0:150) + '...' : blog.description }}
+            <!-- Title -->
+            <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px; min-height: 56px;">
+              {{ blog.title }}
+            </h4>
+
+            <!-- Description -->
+            <p class="line-clamp-2" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751; margin-bottom: 16px; min-height: 40px;">
+              {{ blog.description }}
             </p>
 
-            <div class="blog-card-actions">
-              <button *ngIf="blog.youtubeUrl" class="btn-action video" (click)="openYouTubeVideo(blog.youtubeUrl!, $event)">
-                <i class="bi bi-youtube"></i> Voir sur YouTube
-              </button>
-              <button *ngIf="!blog.youtubeUrl" class="btn-action">
-                <i class="bi bi-arrow-right"></i> Lire Plus
-              </button>
+            <!-- Divider & Link -->
+            <div class="pt-4" style="border-top: 1px solid #e2e2e5;">
+              <span class="inline-flex items-center gap-2 font-bold text-sm hover:opacity-80 transition-opacity" 
+                    style="color: #0067b1; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600;">
+                {{ blog.youtubeUrl ? 'Watch Video' : 'Read More' }} <i class="bi bi-arrow-right text-xs"></i>
+              </span>
             </div>
           </div>
-        </article>
+
+        </div>
       </div>
     </div>
 
     <!-- Pagination -->
-    <app-pagination
-      *ngIf="!loading && !error && totalItems > itemsPerPage"
-      [currentPage]="currentPage"
-      [totalItems]="totalItems"
-      [itemsPerPage]="itemsPerPage"
-      (pageChange)="onPageChange($event)">
-    </app-pagination>
+    <div class="flex justify-center" *ngIf="!loading && !error && totalItems > itemsPerPage">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
   </div>
 </section>
+</main>

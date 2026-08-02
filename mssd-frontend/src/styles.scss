@@ -1,23 +1,74 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// MSSD — Global Styles (The Precision Architect)
+// ═══════════════════════════════════════════════════════════════════════════
 
 @use 'sass:color';
-@use 'assets/css/_design-system.scss';
+@use 'assets/css/_design-system.scss' as ds;
+@use 'styles/strategic-growth-system.scss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@source "./app";
 
-/* Global styles for modern MSSD website */
+/* Global resets */
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', 'Poppins', 'Roboto', Arial, sans-serif;
+  font-family: 'Inter', 'Manrope', system-ui, sans-serif;
   line-height: 1.6;
-  color: #222222;
-  background: #f8f9fa;
+  color: ds.$color-on-surface;
+  background: ds.$color-surface;
+}
+
+/* Headings use Manrope */
+h1, h2, h3, h4, h5, h6 {
+  font-family: ds.$font-headline;
+  font-weight: 700;
+  color: ds.$color-on-surface;
+  letter-spacing: -0.01em;
+}
+
+/* Never use pure black */
+p, span, div, li, a {
+  color: inherit;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid ds.$color-on-primary-container;
+  outline-offset: 2px;
+  border-radius: ds.$radius-sm;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: ds.$color-primary;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: ds.$color-surface-low;
+}
+::-webkit-scrollbar-thumb {
+  background: ds.$color-outline-variant;
+  border-radius: 9999px;
+  &:hover {
+    background: ds.$color-outline;
+  }
 }
 
 /* Bootstrap overrides for consistency */

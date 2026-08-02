@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import { Theme } from '../../model/annexes.model';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-annexes-theme-detail',
@@ -24,8 +25,14 @@ export class AnnexesThemeDetail implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private themeService: ThemeService,
-    private router: Router
+    private router: Router,
+    public translationService: TranslationService
   ) {}
+
+  // Translation helper method
+  t(key: string): string {
+    return this.translationService.t(key);
+  }
 
   ngOnInit(): void {
     this.slug = this.route.snapshot.paramMap.get('slug') || '';
@@ -71,6 +78,19 @@ export class AnnexesThemeDetail implements OnInit {
       case 'INTERMEDIATE': return 'Intermédiaire';
       case 'EXPERT': return 'Expert';
       default: return level;
+    }
+  }
+
+  getLevelBadgeStyle(level: string): string {
+    switch (level) {
+      case 'BEGINNER': 
+        return 'background-color: #d2e4ff; color: #004f89;';
+      case 'INTERMEDIATE': 
+        return 'background-color: #ffdad5; color: #930007;';
+      case 'EXPERT': 
+        return 'background-color: #e30613; color: #ffffff;';
+      default: 
+        return 'background-color: #f3f3f6; color: #414751;';
     }
   }
 

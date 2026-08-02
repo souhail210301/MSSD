@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonModule} from '@angular/common';
+import { Router } from '@angular/router';
 import { Portfolio } from '../../model/portfolio.model';
 import { PortfolioService } from '../../services/portfolio.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -28,7 +29,8 @@ export class PortfolioComponent implements OnInit {
 
   constructor(
     private portfolioService: PortfolioService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private router: Router
   ) {}
 
   t(key: string): string {
@@ -174,5 +176,10 @@ export class PortfolioComponent implements OnInit {
     if (!event.target.src.includes('portfolio/app-1.jpg')) {
       event.target.src = fallback;
     }
+  }
+
+  // Navigate to portfolio details
+  viewPortfolioDetails(portfolioId: number): void {
+    this.router.navigate(['/portfolio', portfolioId]);
   }
 }

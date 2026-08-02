@@ -1,161 +1,202 @@
-/* FlexStart Layout Styles */
+/* ═══════════════════════════════════════════════════════════════════════════
+   FlexStart Layout — "The Strategic Growth System"
+   ═══════════════════════════════════════════════════════════════════════════ */
 @use 'sass:color';
 
-// Modern Variables
-$primary-color: #002b6c;
-$secondary-color: #e60000;
-$success-color: #28a745;
-$warning-color: #ffc107;
-$danger-color: #dc3545;
-$info-color: #17a2b8;
-$light-color: #f8f9fa;
-$dark-color: #343a40;
-$white: #ffffff;
-$black: #000000;
-$text-dark: #2c3e50;
-$text-muted: #6c757d;
-$border-radius: 12px;
-$shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
-$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+// ── Strategic Growth System Design Tokens ──
+$primary:            #0067b1;
+$primary-dark:       #004f89;
+$primary-container:  #d2e4ff;
+$on-primary:         #ffffff;
 
-// Modern Dropdown Styles for FlexStart Navigation
-#navmenu {
-  ul {
-    li.dropdown {
-      position: relative;
+$secondary:          #e30613;
+$secondary-dark:     #bc000c;
 
-      .modern-dropdown {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 0;
-        min-width: 250px;
-        max-width: 280px;
-        background: $white;
-        border-radius: $border-radius;
-        box-shadow: $shadow-lg;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: $transition;
-        z-index: 1050;
-        border: 1px solid rgba($primary-color, 0.1);
-        padding: 0.75rem;
+$surface:            #f9f9fc;
+$surface-low:        #f3f3f6;
+$surface-lowest:     #ffffff;
+$surface-high:       #e8e8ea;
 
-        &.show {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
-        }
+$on-surface:         #1a1c1e;
+$on-surface-variant: #414751;
+$outline-variant:    #c1c7d3;
 
-        .dropdown-item {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem;
-          color: $text-dark;
-          text-decoration: none;
-          border-radius: $border-radius;
-          margin-bottom: 0.25rem;
-          transition: $transition;
+$radius-sm:   0.125rem;
+$radius:      0.25rem;
+$radius-lg:   0.5rem;
+$radius-xl:   0.75rem;
 
-          &:hover {
-            background: rgba($primary-color, 0.05);
-            color: $primary-color;
-            transform: translateX(5px);
-          }
+$shadow-sm:   0 2px 8px rgba(26, 28, 30, 0.04);
+$shadow-md:   0 4px 16px rgba(26, 28, 30, 0.08);
+$shadow-lg:   0 12px 32px rgba(26, 28, 30, 0.12);
+$transition:  all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-          &.featured {
-            background: linear-gradient(135deg, rgba($secondary-color, 0.1), rgba($primary-color, 0.1));
-            border: 1px solid rgba($secondary-color, 0.2);
-
-            &:hover {
-              background: linear-gradient(135deg, rgba($secondary-color, 0.15), rgba($primary-color, 0.15));
-              transform: translateX(5px) scale(1.02);
-            }
-          }
-
-          i {
-            font-size: 1.2rem;
-            color: $primary-color;
-            flex-shrink: 0;
-            width: 20px;
-          }
-
-          span {
-            font-weight: 500;
-            font-size: 0.9rem;
-          }
-
-          &:hover span {
-            color: $primary-color;
-          }
-
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: -8px;
-          left: 2rem;
-          width: 0;
-          height: 0;
-          border-left: 8px solid transparent;
-          border-right: 8px solid transparent;
-          border-bottom: 8px solid $white;
-        }
-      }
-    }
-  }
-}
-
-
-
-/* Language Toggle Button */
-.language-toggle {
-  margin-left: 15px;
-  position: relative;
+/* =======================================================
+   Custom Navbar (Strategic Growth System)
+   ======================================================= */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 9999;
-  pointer-events: auto;
-  
-  .language-btn {
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: $shadow-sm;
+}
+
+.custom-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.custom-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $on-surface;
+
+  img {
+    height: 2.5rem;
+    width: auto;
+  }
+}
+
+.custom-navbar-links {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+
+  a {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: 0.875rem;
     font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid #007bff;
-    background: transparent;
-    color: #007bff;
-    cursor: pointer;
-    
-    &:hover {
-      background: #007bff;
-      color: white;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-    }
-    
-    i {
-      font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $on-surface-variant;
+    text-decoration: none;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover, &.active {
+      color: $primary;
+      border-bottom-color: $primary;
     }
   }
 }
 
-// Responsive design for mobile
-@media (max-width: 768px) {
-  .language-toggle {
-    position: fixed;
-    top: 18px;
-    right: 75px;
-    z-index: 9999;
+@media (min-width: 768px) {
+  .custom-navbar-links {
+    display: flex;
+  }
+}
+
+.custom-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lang-toggle-btn {
+  padding: 0.5rem 1rem;
+  border-radius: $radius;
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $on-surface-variant;
+  background: transparent;
+  border: 1px solid $outline-variant;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: $surface-low;
+    color: $primary;
+    border-color: $primary;
+  }
+}
+
+.calendar-btn {
+  padding: 0.625rem 1.5rem;
+  border-radius: $radius;
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: $primary;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: $shadow-sm;
+  transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+  text-decoration: none;
+
+  &:hover {
+    background: $primary-dark;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.mobile-toggle-btn {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: $on-surface-variant;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-toggle-btn {
+    display: none;
+  }
+}
+
+.mobile-dropdown-menu {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: $shadow-lg;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+  gap: 1rem;
+
+  a {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $on-surface-variant;
+    text-decoration: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $surface-high;
+
+    &:hover {
+      color: $primary;
+    }
     
-    .language-btn {
-      padding: 4px 8px;
-      font-size: 0.8rem;
+    &:last-child {
+      border-bottom: none;
     }
   }
-} 
+}

@@ -1,96 +1,198 @@
-<!-- Annexes Hero -->
-<section class="annexes-hero">
-  <div class="container">
-    <h1 class="annexes-hero-title">Catalogue des Formations</h1>
-    <p class="annexes-hero-subtitle">Parcourez nos thèmes de formation et trouvez le programme adapté à vos besoins</p>
-    <a routerLink="/annexes/request" class="btn-hero-cta">
-      <i class="bi bi-plus-circle"></i> Demander une formation
-    </a>
-  </div>
-</section>
+<main class="bg-[#f9f9fc]" style="padding-top: 80px;">
 
-<!-- Annexes Content -->
-<section class="annexes-section">
-  <div class="container">
-    <!-- Loading -->
-    <div *ngIf="loading" class="loading-state">
-      <div class="spinner"></div>
-      <p>Chargement des formations...</p>
-    </div>
+<!-- Hero Section -->
+<section class="relative overflow-hidden" style="background-color: #f2f7fa;">
+  <div class="container mx-auto px-6 py-24" style="max-width: 1280px;">
+    <div class="text-center max-w-4xl mx-auto">
+      <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #0067b1; text-transform: uppercase; margin-bottom: 16px;">
+        {{ t('annexes.hero.badge.title') }}
+      </div>
+      <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #1a1c1e; margin-bottom: 24px;">
+        {{ t('annexes.hero.main.title') }}
+      </h1>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 40px;">
+        {{ t('annexes.hero.main.subtitle') }}
+      </p>
 
-    <!-- Error -->
-    <div *ngIf="error && !loading" class="error-state">
-      <i class="bi bi-exclamation-triangle-fill"></i>
-      <p>{{ error }}</p>
-    </div>
-
-    <!-- Themes Grid -->
-    <div *ngIf="!loading && !error && paginatedThemes.length > 0" class="row gy-4">
-      <div *ngFor="let theme of paginatedThemes" class="col-lg-4 col-md-6">
-        <div class="theme-card" [routerLink]="['/annexes-theme', theme.slug]">
-          <div class="theme-card-header">
-            <div class="theme-icon-wrapper">
-              <i *ngIf="!theme.iconUrl" class="bi bi-collection"></i>
-              <img *ngIf="theme.iconUrl" [src]="theme.iconUrl" alt="" class="theme-icon-img">
-            </div>
-            <span class="theme-count-badge">{{ theme.formations?.length || 0 }}</span>
+      <!-- Stats Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div class="text-center">
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 700; color: #0067b1; margin-bottom: 8px;">
+            {{ totalFormations }}+
           </div>
-
-          <div class="theme-card-body">
-            <h4 class="theme-card-title">{{ theme.name }}</h4>
-            <p class="theme-card-desc">{{ theme.description || 'Découvrez nos formations dans ce domaine.' }}</p>
-
-            <div class="theme-stats">
-              <div class="stat">
-                <span class="stat-value">{{ theme.formations?.length || 0 }}</span>
-                <span class="stat-label">Formations</span>
-              </div>
-              <div class="stat">
-                <span class="stat-value">{{ getActiveFormationsCount(theme) }}</span>
-                <span class="stat-label">Actives</span>
-              </div>
-              <div class="stat">
-                <span class="stat-value">{{ getFormationLevels(theme) }}</span>
-                <span class="stat-label">Niveaux</span>
-              </div>
-            </div>
-
-            <span class="btn-see-more">
-              Voir les formations <i class="bi bi-arrow-right"></i>
-            </span>
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase;">
+            {{ t('annexes.stats.programs') }}
+          </div>
+        </div>
+        <div class="text-center">
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 700; color: #0067b1; margin-bottom: 8px;">
+            {{ totalLearners }}+
+          </div>
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase;">
+            {{ t('annexes.stats.trained') }}
+          </div>
+        </div>
+        <div class="text-center">
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 700; color: #0067b1; margin-bottom: 8px;">
+            {{ averageRating }}/5
+          </div>
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase;">
+            {{ t('annexes.stats.rating') }}
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+<!-- Themes Section -->
+<section class="py-20" style="background-color: #ffffff;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
 
-    <!-- Empty -->
-    <div *ngIf="!loading && !error && themes.length === 0" class="empty-state">
-      <i class="bi bi-collection"></i>
-      <h4>Aucun thème disponible</h4>
-      <p>Les formations seront bientôt disponibles.</p>
-      <div class="empty-actions">
-        <button class="btn-action" (click)="loadThemesWithFormations()">
-          <i class="bi bi-arrow-clockwise"></i> Réessayer
-        </button>
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex flex-col items-center justify-center py-20">
+      <div class="w-16 h-16 border-4 rounded-full animate-spin" style="border-color: #e2e2e5; border-top-color: #0067b1;"></div>
+      <p class="mt-6" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #414751;">{{ t('annexes.loading.message') }}</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="max-w-2xl mx-auto rounded-lg p-6 mb-8" 
+         style="background-color: #ffdad6; border: 1px solid #ba1a1a; border-radius: 0.5rem;">
+      <div class="flex items-center gap-3">
+        <i class="bi bi-exclamation-triangle-fill text-2xl" style="color: #ba1a1a;"></i>
+        <div>
+          <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #93000a;">
+            {{ t('annexes.error.title') }}
+          </h4>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #93000a; margin-top: 4px;">
+            {{ error }}
+          </p>
+        </div>
       </div>
     </div>
 
-    <!-- Pagination -->
-    <app-pagination
-      [currentPage]="currentPage"
-      [totalItems]="totalItems"
-      [itemsPerPage]="itemsPerPage"
-      (pageChange)="onPageChange($event)"
-      *ngIf="themes.length > itemsPerPage">
-    </app-pagination>
+    <!-- Themes Grid -->
+    <div *ngIf="paginatedThemes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-    <!-- CTA -->
-    <div *ngIf="!loading && themes.length > 0" class="annexes-cta">
-      <h4>Besoin d'une formation personnalisée ?</h4>
-      <p>Notre équipe peut créer une formation sur mesure adaptée à vos besoins spécifiques.</p>
-      <a routerLink="/annexes/request" class="btn-action-outline">
-        <i class="bi bi-chat-dots"></i> Demander un devis personnalisé
-      </a>
+      <!-- Theme Card -->
+      <div *ngFor="let theme of paginatedThemes" 
+           [routerLink]="['/annexes', theme.slug]"
+           class="group cursor-pointer bg-white rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+
+        <!-- Card Image/Icon Area -->
+        <div class="h-48 flex items-center justify-center relative overflow-hidden" 
+             style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%);">
+          
+          <!-- Show uploaded image if exists -->
+          <img *ngIf="theme.iconUrl" 
+               [src]="getIconUrl(theme.iconUrl)" 
+               [alt]="theme.name"
+               class="w-full h-full object-cover"
+               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+          
+          <!-- Show placeholder icon if no image -->
+          <i *ngIf="!theme.iconUrl" 
+             class="bi bi-mortarboard-fill text-6xl opacity-30" 
+             style="color: #ffffff;"></i>
+          
+          <!-- Badge -->
+          <div class="absolute top-4 right-4 px-3 py-1 rounded text-xs font-semibold"
+               style="background-color: rgba(255, 255, 255, 0.2); color: #ffffff; backdrop-filter: blur(10px); border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif; letter-spacing: 0.05em;">
+            {{ (theme.formations?.length || 0) }} {{ t('annexes.themes.badge') }}
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="p-6">
+
+          <!-- Title -->
+          <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px;">
+            {{ theme.name }}
+          </h3>
+
+          <!-- Description -->
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751; margin-bottom: 20px; min-height: 60px;">
+            {{ theme.description || t('annexes.themes.default-desc') }}
+          </p>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 gap-4 pt-4" style="border-top: 1px solid #e2e2e5;">
+
+            <!-- Active Programs -->
+            <div>
+              <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #0067b1; line-height: 1;">
+                {{ getActiveFormationsCount(theme) }}
+              </div>
+              <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; color: #717782; text-transform: uppercase; margin-top: 4px;">
+                {{ t('annexes.themes.active') }}
+              </div>
+            </div>
+
+            <!-- Levels -->
+            <div>
+              <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #0067b1; line-height: 1;">
+                {{ getFormationLevels(theme) }}
+              </div>
+              <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; color: #717782; text-transform: uppercase; margin-top: 4px;">
+                {{ t('annexes.themes.levels') }}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- View Button -->
+          <div class="mt-6 flex items-center gap-2 group-hover:gap-3 transition-all" 
+               style="color: #0067b1;">
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600;">
+              {{ t('annexes.themes.view') }}
+            </span>
+            <i class="bi bi-arrow-right text-sm"></i>
+          </div>
+
+        </div>
+      </div>
+
     </div>
+
+    <!-- Empty State -->
+    <div *ngIf="paginatedThemes.length === 0 && !loading && !error" class="text-center py-20">
+      <i class="bi bi-inbox text-5xl mb-4" style="color: #c1c7d3;"></i>
+      <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+        {{ t('annexes.empty.title') }}
+      </h4>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #414751;">
+        {{ t('annexes.empty.subtitle') }}
+      </p>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="totalItems > itemsPerPage" class="mt-16 flex justify-center">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
+
   </div>
 </section>
+<!-- CTA Section -->
+<section class="py-24" style="background-color: #004f89;">
+  <div class="container mx-auto px-6 text-center" style="max-width: 1280px;">
+    <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #ffffff; margin-bottom: 16px;">
+      {{ t('annexes.cta.title') }}
+    </h2>
+    <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 400; line-height: 32px; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; max-width: 640px; margin-left: auto; margin-right: auto;">
+      {{ t('annexes.cta.description') }}
+    </p>
+    <button routerLink="/contact" 
+       class="inline-flex items-center justify-center px-12 py-5 rounded transition-all hover:scale-105"
+       style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);">
+      <i class="bi bi-chat-dots-fill mr-2"></i>
+      {{ t('annexes.cta.button') }}
+    </button>
+  </div>
+</section>
+
+</main>

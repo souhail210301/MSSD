@@ -1,140 +1,339 @@
 <!-- Contact Page -->
-<section class="contact-hero">
-  <div class="container">
-    <h1 class="contact-hero-title">{{ t('contact.title') || 'Contactez-nous' }}</h1>
-    <p class="contact-hero-subtitle">{{ t('home.contact-cta.subtitle') || 'Nous sommes à votre écoute pour répondre à toutes vos questions' }}</p>
+<main>
+
+<!-- Hero Section -->
+<section class="relative py-20 overflow-hidden" style="background-color: #004f89; padding-top: 120px;">
+  <!-- Decorative Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.2);"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.1);"></div>
+  </div>
+  
+  <!-- Decorative Icon -->
+  <div class="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-10 hidden lg:block">
+    <div class="w-48 h-48 rounded-lg flex items-center justify-center" 
+         style="border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem;">
+      <i class="bi bi-chat-square-dots-fill" style="font-size: 80px; color: rgba(255, 255, 255, 0.3);"></i>
+    </div>
+  </div>
+  
+  <div class="container mx-auto px-6 relative z-10" style="max-width: 1280px;">
+    <div class="max-w-2xl">
+      <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 16px;">
+        Contact Sales Leadership
+      </h1>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: rgba(255, 255, 255, 0.9);">
+        Discuss how MSSD can architect a growth solution for your organization. Our consultants are ready to audit your current sales structure and provide a roadmap for excellence.
+      </p>
+    </div>
   </div>
 </section>
 
-<section class="contact-section">
-  <div class="container">
-    <div class="row gy-4">
-      <!-- Contact Info Cards -->
-      <div class="col-lg-5">
-        <div class="info-cards">
-          <div class="info-card">
-            <div class="info-icon"><i class="bi bi-geo-alt-fill"></i></div>
-            <div class="info-body">
-              <h4>Adresse</h4>
-              <p>123 Rue de la Formation<br>75001 Paris, France</p>
+<!-- Main Content -->
+<section class="py-20" style="background-color: #f9f9fc;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    <div class="grid lg:grid-cols-5 gap-12">
+      
+      <!-- Left Column: Info Cards -->
+      <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Address Card -->
+        <div class="bg-white rounded-lg p-6 transition-all hover:shadow-lg" 
+             style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded flex items-center justify-center flex-shrink-0" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-geo-alt-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <div>
+              <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase; margin-bottom: 8px;">
+                Address
+              </h4>
+              <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #1a1c1e;">
+                BOUMHEL, Ben Arous<br>
+                Tunisia
+              </p>
             </div>
           </div>
+        </div>
 
-          <div class="info-card">
-            <div class="info-icon"><i class="bi bi-telephone-fill"></i></div>
-            <div class="info-body">
-              <h4>Téléphone</h4>
-              <p>+33 1 23 45 67 89</p>
+        <!-- Phone Card -->
+        <div class="bg-white rounded-lg p-6 transition-all hover:shadow-lg" 
+             style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded flex items-center justify-center flex-shrink-0" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-telephone-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <div>
+              <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase; margin-bottom: 8px;">
+                Phone
+              </h4>
+              <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #1a1c1e;">
+                +216 29 557 078
+              </p>
             </div>
           </div>
+        </div>
 
-          <div class="info-card">
-            <div class="info-icon"><i class="bi bi-envelope-fill"></i></div>
-            <div class="info-body">
-              <h4>Email</h4>
-              <p>contact&#64;mssd.fr</p>
+        <!-- Email Card -->
+        <div class="bg-white rounded-lg p-6 transition-all hover:shadow-lg" 
+             style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded flex items-center justify-center flex-shrink-0" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-envelope-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <div>
+              <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase; margin-bottom: 8px;">
+                Email
+              </h4>
+              <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #1a1c1e;">
+                contact&#64;mssd-tunisie.com
+              </p>
             </div>
           </div>
+        </div>
 
-          <div class="info-card">
-            <div class="info-icon"><i class="bi bi-clock-fill"></i></div>
-            <div class="info-body">
-              <h4>Horaires</h4>
-              <p>Lun - Ven : 9h00 - 18h00</p>
+        <!-- Hours Card -->
+        <div class="bg-white rounded-lg p-6 transition-all hover:shadow-lg" 
+             style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded flex items-center justify-center flex-shrink-0" 
+                 style="background-color: #d2e4ff; border-radius: 0.25rem;">
+              <i class="bi bi-clock-fill" style="font-size: 20px; color: #0067b1;"></i>
+            </div>
+            <div>
+              <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase; margin-bottom: 8px;">
+                Hours
+              </h4>
+              <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #1a1c1e;">
+                Monday - Friday: 09:00 - 18:00<br>
+                Tunisia Time (GMT+1)
+              </p>
             </div>
           </div>
         </div>
 
         <!-- Social Links -->
-        <div class="social-section">
-          <h5>Suivez-nous</h5>
-          <div class="social-links">
-            <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-btn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+        <div class="pt-4">
+          <h5 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #414751; text-transform: uppercase; margin-bottom: 16px;">
+            Follow Sales Excellence
+          </h5>
+          <div class="flex gap-3">
+            <a href="https://www.linkedin.com/company/mssd/posts/?feedView=all" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="w-12 h-12 rounded flex items-center justify-center transition-all hover:scale-110" 
+               style="background-color: #f3f3f6; color: #0067b1; border-radius: 0.25rem;"
+               title="LinkedIn">
+              <i class="bi bi-linkedin text-lg"></i>
+            </a>
+            <a href="https://www.facebook.com/MSSD2016FormationConsulting" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="w-12 h-12 rounded flex items-center justify-center transition-all hover:scale-110" 
+               style="background-color: #f3f3f6; color: #0067b1; border-radius: 0.25rem;"
+               title="Facebook">
+              <i class="bi bi-facebook text-lg"></i>
+            </a>
+            <a href="https://www.youtube.com/@MSSD-Training" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="w-12 h-12 rounded flex items-center justify-center transition-all hover:scale-110" 
+               style="background-color: #f3f3f6; color: #0067b1; border-radius: 0.25rem;"
+               title="YouTube">
+              <i class="bi bi-youtube text-lg"></i>
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Contact Form -->
-      <div class="col-lg-7">
-        <div class="contact-form-card">
-          <h3 class="form-title">{{ t('contact.get-in-touch') || 'Envoyez-nous un message' }}</h3>
-          <p class="form-subtitle">Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+      <!-- Right Column: Contact Form and Map -->
+      <div class="lg:col-span-3 space-y-6">
+        <!-- Contact Form -->
+        <div class="bg-white rounded-lg p-10" 
+             style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        
+          <!-- Form Header -->
+          <div class="mb-8">
+            <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 32px; font-weight: 600; line-height: 40px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 12px;">
+              Envoyez-nous un message
+            </h2>
+            <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751;">
+              Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
+            </p>
+          </div>
 
-          <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="fullName" class="form-label">{{ t('contact.name') || 'Nom complet' }} *</label>
-                <input id="fullName" type="text" class="form-input"
-                       [(ngModel)]="contactModel.fullName" name="fullName"
-                       required minlength="2" #fullName="ngModel"
-                       [class.invalid]="fullName.invalid && fullName.touched"
-                       placeholder="Votre nom">
-                <div class="field-error" *ngIf="fullName.invalid && fullName.touched">
+          <!-- Contact Form -->
+          <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="space-y-6">
+          
+            <!-- Name & Email Row -->
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="fullName" 
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block; margin-bottom: 8px;">
+                  Nom complet *
+                </label>
+                <input id="fullName" 
+                       type="text"
+                       class="w-full px-4 py-3 rounded border outline-none transition-all"
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                       onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                       onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                       [(ngModel)]="contactModel.fullName" 
+                       name="fullName"
+                       required 
+                       minlength="2" 
+                       #fullName="ngModel"
+                       placeholder="John Dupont">
+                <div *ngIf="fullName.invalid && fullName.touched" 
+                     style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a; margin-top: 4px;">
                   <span *ngIf="fullName.errors?.['required']">Le nom est requis</span>
                   <span *ngIf="fullName.errors?.['minlength']">Minimum 2 caractères</span>
                 </div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">{{ t('contact.email') || 'Email' }} *</label>
-                <input id="email" type="email" class="form-input"
-                       [(ngModel)]="contactModel.email" name="email"
-                       required email #emailField="ngModel"
-                       [class.invalid]="emailField.invalid && emailField.touched"
-                       placeholder="votre&#64;email.com">
-                <div class="field-error" *ngIf="emailField.invalid && emailField.touched">
+
+              <div>
+                <label for="email" 
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block; margin-bottom: 8px;">
+                  Email *
+                </label>
+                <input id="email" 
+                       type="email"
+                       class="w-full px-4 py-3 rounded border outline-none transition-all"
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                       onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                       onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                       [(ngModel)]="contactModel.email" 
+                       name="email"
+                       required 
+                       email 
+                       #emailField="ngModel"
+                       placeholder="j.dupont&#64;company.com">
+                <div *ngIf="emailField.invalid && emailField.touched" 
+                     style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a; margin-top: 4px;">
                   <span *ngIf="emailField.errors?.['required']">L'email est requis</span>
                   <span *ngIf="emailField.errors?.['email']">Veuillez entrer un email valide</span>
                 </div>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="phone" class="form-label">Téléphone</label>
-                <input id="phone" type="tel" class="form-input"
-                       [(ngModel)]="contactModel.phone" name="phone"
-                       placeholder="+33 6 12 34 56 78">
+            <!-- Phone & Subject Row -->
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="phone" 
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block; margin-bottom: 8px;">
+                  Téléphone
+                </label>
+                <input id="phone" 
+                       type="tel"
+                       class="w-full px-4 py-3 rounded border outline-none transition-all"
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                       onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                       onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                       [(ngModel)]="contactModel.phone" 
+                       name="phone"
+                       placeholder="+33 6 00 00 00 00">
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="subject" class="form-label">{{ t('contact.subject') || 'Sujet' }} *</label>
-                <input id="subject" type="text" class="form-input"
-                       [(ngModel)]="contactModel.subject" name="subject"
-                       required #subjectField="ngModel"
-                       [class.invalid]="subjectField.invalid && subjectField.touched"
-                       placeholder="Objet de votre message">
-                <div class="field-error" *ngIf="subjectField.invalid && subjectField.touched">
+
+              <div>
+                <label for="subject" 
+                       style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block; margin-bottom: 8px;">
+                  Sujet *
+                </label>
+                <select id="subject"
+                        class="w-full px-4 py-3 rounded border outline-none transition-all"
+                        style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem; color: #1a1c1e;"
+                        [(ngModel)]="contactModel.subject" 
+                        name="subject"
+                        required 
+                        #subjectField="ngModel">
+                  <option value="" disabled selected>Sélectionnez un sujet</option>
+                  <option value="Management">Management</option>
+                  <option value="Sales">Sales Training</option>
+                  <option value="Technical">Technical</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div *ngIf="subjectField.invalid && subjectField.touched" 
+                     style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a; margin-top: 4px;">
                   <span>Le sujet est requis</span>
                 </div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="message" class="form-label">{{ t('contact.message') || 'Message' }} *</label>
-              <textarea id="message" class="form-input form-textarea"
-                        [(ngModel)]="contactModel.message" name="message"
-                        required minlength="10" #messageField="ngModel"
-                        [class.invalid]="messageField.invalid && messageField.touched"
-                        placeholder="Décrivez votre demande..." rows="5"></textarea>
-              <div class="field-error" *ngIf="messageField.invalid && messageField.touched">
+            <!-- Message -->
+            <div>
+              <label for="message" 
+                     style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; display: block; margin-bottom: 8px;">
+                Message *
+              </label>
+              <textarea id="message"
+                        class="w-full px-4 py-3 rounded border outline-none transition-all resize-none"
+                        style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; background-color: #ffffff; border: 1px solid #c1c7d3; border-radius: 0.25rem;"
+                        onfocus="this.style.borderColor='#0067b1'; this.style.borderWidth='2px';"
+                        onblur="this.style.borderColor='#c1c7d3'; this.style.borderWidth='1px';"
+                        [(ngModel)]="contactModel.message" 
+                        name="message"
+                        required 
+                        minlength="10" 
+                        #messageField="ngModel"
+                        placeholder="How can we help optimize your sales performance?"
+                        rows="5"></textarea>
+              <div *ngIf="messageField.invalid && messageField.touched" 
+                   style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #ba1a1a; margin-top: 4px;">
                 <span *ngIf="messageField.errors?.['required']">Le message est requis</span>
                 <span *ngIf="messageField.errors?.['minlength']">Minimum 10 caractères</span>
               </div>
             </div>
 
-            <button type="submit" class="btn-submit" [disabled]="isSubmitting">
-              <span *ngIf="!isSubmitting">
-                <i class="bi bi-send-fill"></i> {{ t('contact.send') || 'Envoyer le message' }}
-              </span>
-              <span *ngIf="isSubmitting" class="btn-loading">
-                <span class="spinner"></span> Envoi en cours...
-              </span>
-            </button>
+            <!-- Privacy Notice -->
+            <div class="flex items-start gap-3 p-4 rounded" 
+                 style="background-color: #f2f7fa; border-radius: 0.25rem;">
+              <input type="checkbox" 
+                     id="privacy" 
+                     class="mt-1"
+                     style="width: 20px; height: 20px;">
+              <label for="privacy" 
+                     style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; color: #414751;">
+                I agree to the privacy policy regarding the processing of my personal data.
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
+              <button type="submit" 
+                      class="w-full px-8 py-4 rounded flex items-center justify-center gap-2 transition-all hover:scale-105 disabled:opacity-50"
+                      [disabled]="isSubmitting || !contactForm.valid"
+                      style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);">
+                <span *ngIf="!isSubmitting">
+                  <i class="bi bi-send-fill"></i> Envoyer le message
+                </span>
+                <span *ngIf="isSubmitting" class="flex items-center gap-2">
+                  <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Envoi en cours...
+                </span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
+
+    </div>
+
+    <!-- Full Width Map -->
+    <div class="rounded-lg overflow-hidden shadow-lg mt-6" 
+         style="border: 1px solid #e2e2e5; border-radius: 0.5rem; height: 400px; width: 100%;">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.072222222222!2d10.305279!3d36.727738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd84b8a0b7b777%3A0x4b3b8b8b8b8b8b8b!2sAv.%20de%20L'environnement%2C%20Boumhel%20El%20Bassatine%201080%20Tunis!5e0!3m2!1sfr!2stn!4v1722600000000!5m2!1sfr!2stn"
+        width="100%"
+        height="100%"
+        style="border:0; margin:0; padding:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </div>
 </section>
+</main>

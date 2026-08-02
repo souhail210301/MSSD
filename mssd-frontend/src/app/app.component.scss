@@ -231,9 +231,7 @@ $transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 // Offset for fixed navbar
-.main {
-  margin-top: 80px;
-}
+.main{ }
 
 // Responsive adjustments
 @media (max-width: 991px) {
@@ -243,9 +241,7 @@ $transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
     }
   }
   
-  .main {
-    margin-top: 70px;
-  }
+  .main{ }
 }
 
 @media (max-width: 768px) {

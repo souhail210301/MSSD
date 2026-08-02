@@ -211,11 +211,76 @@ export class Calendar implements OnInit {
   }
 
   getDayNames(): string[] {
-    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return ['LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM'];
+  }
+
+  getDayStyle(date: Date): string {
+    const isOtherMonth = !this.isCurrentMonth(date);
+    const isSelected = this.isSelected(date);
+    const isToday = this.isToday(date);
+    const hasEventsForDate = this.hasEvents(date);
+
+    if (isOtherMonth) {
+      return `background-color: #FAF9FE; border: 1px solid rgba(196, 198, 209, 0.15); color: #C4C6D1;`;
+    }
+
+    if (isSelected) {
+      return `background-color: #002C64; border: 2px solid #00183D; color: #5694FF; box-shadow: 0px 4px 12px rgba(0, 44, 100, 0.1);`;
+    }
+
+    if (isToday || hasEventsForDate) {
+      return `background-color: #FFFFFF; border: 1px solid rgba(196, 198, 209, 0.15);`;
+    }
+
+    return `background-color: #FFFFFF; border: 1px solid rgba(196, 198, 209, 0.15);`;
+  }
+
+  getDayNumberStyle(date: Date): string {
+    const isOtherMonth = !this.isCurrentMonth(date);
+    const isSelected = this.isSelected(date);
+    const isToday = this.isToday(date);
+
+    if (isOtherMonth) {
+      return `color: #C4C6D1;`;
+    }
+
+    if (isSelected) {
+      return `color: #5694FF; font-weight: 600;`;
+    }
+
+    if (isToday) {
+      return `color: #1A1B1F; font-weight: 600;`;
+    }
+
+    return `color: #1A1B1F;`;
+  }
+
+  getEventIndicatorStyle(event: CalendarDto): string {
+    const statusColorMap: { [key: string]: { bg: string; text: string; icon: string } } = {
+      'AVAILABLE': { bg: '#D7E2FF', text: '#001B3F', icon: '#00183D' },
+      'FULL': { bg: '#FFE2CC', text: '#311300', icon: '#4D2300' },
+      'CANCELLED': { bg: '#FFDAD6', text: '#93000A', icon: '#93000A' },
+      'COMPLETED': { bg: '#FAF9FE', text: '#00183D', icon: '#00183D' }
+    };
+
+    const colors = statusColorMap[event.status] || statusColorMap['AVAILABLE'];
+    return `background-color: ${colors.bg}; color: ${colors.text};`;
+  }
+
+  getAvailableSpotStyle(event: CalendarDto): string {
+    const color = (event?.availableSpots || 0) > 0 ? '#43474F' : '#BA1A1A';
+    return `color: ${color};`;
+  }
+
+  getActionButtonStyle(event: CalendarDto): string {
+    if ((event?.status === 'AVAILABLE') && ((event?.availableSpots || 0) > 0)) {
+      return 'background: linear-gradient(135deg, #00183D 0%, #002C64 100%); color: white;';
+    }
+    return 'background: #E3E2E7; color: #43474F;';
   }
 
   joinEvent(event: CalendarDto) {
-    if (event.status !== 'AVAILABLE' || event.availableSpots === 0) return;
+    if (event?.status !== 'AVAILABLE' || (event?.availableSpots || 0) === 0) return;
     this.reservationEvent = event;
     this.reservationForm = { calendarId: event.id, visitorName: '', visitorEmail: '', visitorPhone: '', numberOfPeople: 1 };
     this.reservationSuccess = '';

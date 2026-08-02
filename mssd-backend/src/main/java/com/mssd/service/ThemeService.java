@@ -87,6 +87,7 @@ public class ThemeService {
         dto.setName(theme.getName());
         dto.setSlug(theme.getSlug());
         dto.setDescription(theme.getDescription());
+        // Store iconUrl as-is (just the filename)
         dto.setIconUrl(theme.getIconUrl());
         dto.setActive(theme.isActive());
         return dto;

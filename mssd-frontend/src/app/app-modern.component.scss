@@ -384,7 +384,7 @@ $transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
 
 // Adjust main content for fixed navbar
 .main {
-  margin-top: 70px;
+  margin-top: 60px;
 }
 
 /* ================================
@@ -564,6 +564,49 @@ $transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   }
 }
 
+/* ================================
+   Global Language Toggle Button
+   ================================ */
+
+.global-lang-toggle {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: $primary-color;
+  color: $white;
+  border: none;
+  border-radius: 50px;
+  box-shadow: $shadow-lg;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: $transition;
+  
+  i {
+    font-size: 1.1rem;
+  }
+  
+  span {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  &:hover {
+    background: color.adjust($primary-color, $lightness: 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px 0 rgba(0,43,108,0.24);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
   .navbar-modern .navbar-nav {
@@ -616,5 +659,20 @@ $transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
     right: 1rem;
     width: 45px;
     height: 45px;
+  }
+  
+  .global-lang-toggle {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.85rem;
+    
+    i {
+      font-size: 1rem;
+    }
+    
+    span {
+      font-size: 0.85rem;
+    }
   }
 }

@@ -1,100 +1,294 @@
-<!-- About Hero -->
-<section class="about-hero">
-  <div class="container">
-    <h1 class="about-hero-title">{{ t('about.title') || 'À propos de MSSD' }}</h1>
-    <p class="about-hero-subtitle">{{ t('about.subtitle') || 'Management Solutions & Sales Développement — Votre partenaire de formation depuis plus de 20 ans' }}</p>
-  </div>
-</section>
+<main class="bg-[#f9f9fc]" style="padding-top: 80px;">
 
-<!-- About Content -->
-<section class="about-section">
-  <div class="container">
-    <div class="row gy-4 align-items-center">
-      <!-- Image -->
-      <div class="col-lg-6">
-        <div class="about-image-wrapper">
-          <img [src]="aboutImage" (error)="onImgError($event)" alt="MSSD" class="about-img">
+<!-- Hero Section -->
+<section class="relative overflow-hidden" style="background-color: #ffffff;">
+  <div class="container mx-auto px-6 py-24" style="max-width: 1280px;">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Content -->
+      <div class="lg:col-span-7">
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #0067b1; text-transform: uppercase; margin-bottom: 16px;">
+          {{ t('about.hero.label') }}
+        </div>
+        <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #1a1c1e; margin-bottom: 24px;">
+          {{ t('about.subtitle') }}
+        </h1>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 32px;">
+          {{ t('about.hero.description') }}
+        </p>
+      </div>
+      
+      <!-- Right Image -->
+      <div class="lg:col-span-5 relative">
+        <div class="rounded-lg overflow-hidden" style="box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04); border-radius: 0.5rem;">
+          <img src="assets/img/formation-8.jpg" 
+               alt="MSSD professional training environment" 
+               class="w-full h-full object-cover"
+               style="aspect-ratio: 4/5;">
         </div>
       </div>
-
-      <!-- Content -->
-      <div class="col-lg-6">
-        <div class="about-content-card">
-          <span class="about-badge"><i class="bi bi-award-fill"></i> Faites-nous confiance</span>
-          <h2 class="about-title">{{ t('about.mission') || 'Excellence & Innovation en Formation Professionnelle' }}</h2>
-
-          <p class="about-text">
-            {{ t('about.mission-desc') || 'MSSD se renouvelle en permanence, réagit à un environnement en perpétuel changement. La formation professionnelle doit s\'adapter et proposer de nouvelles solutions ajustées à vos besoins de mobilité et de flexibilité.' }}
-          </p>
-
-          <p class="about-text">
-            {{ t('about.vision-desc') || 'Fondé par Mr Tarek Hassine, ingénieur et praticien spécialiste du développement commercial et de la force de vente, avec une formation multidisciplinaire et une riche expérience internationale.' }}
-          </p>
-
-          <div class="about-highlights">
-            <div class="highlight-item">
-              <div class="highlight-icon"><i class="bi bi-check-circle-fill"></i></div>
-              <span>20+ ans d'expertise terrain</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-icon"><i class="bi bi-check-circle-fill"></i></div>
-              <span>Coaching de proximité &amp; gestion par objectif</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-icon"><i class="bi bi-check-circle-fill"></i></div>
-              <span>Accompagnement du changement organisationnel</span>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-icon"><i class="bi bi-check-circle-fill"></i></div>
-              <span>Expérience internationale multi-secteurs</span>
-            </div>
-          </div>
-
-          <div class="about-actions">
-            <a routerLink="/annexes" class="btn-about-primary">
-              <i class="bi bi-mortarboard"></i> Découvrir nos formations
-            </a>
-            <a routerLink="/contact" class="btn-about-outline">
-              <i class="bi bi-telephone"></i> Demander un devis
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Values Section -->
-    <div class="values-grid">
-      <div class="value-card">
-        <div class="value-icon"><i class="bi bi-lightbulb-fill"></i></div>
-        <h4>Innovation</h4>
-        <p>Des méthodes pédagogiques modernes et adaptées aux enjeux actuels du marché.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon"><i class="bi bi-people-fill"></i></div>
-        <h4>Proximité</h4>
-        <p>Un accompagnement personnalisé au plus près de vos équipes et de vos besoins.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon"><i class="bi bi-graph-up-arrow"></i></div>
-        <h4>Performance</h4>
-        <p>Des résultats mesurables grâce au management par le processus et les KPIs.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon"><i class="bi bi-globe2"></i></div>
-        <h4>International</h4>
-        <p>Une expertise qui intègre la diversité culturelle dans un contexte mondialisé.</p>
-      </div>
-    </div>
-
-    <!-- Social -->
-    <div class="about-social">
-      <h5>Suivez-nous</h5>
-      <div class="social-links">
-        <a href="https://www.facebook.com/" target="_blank" class="social-btn"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/" target="_blank" class="social-btn"><i class="bi bi-instagram"></i></a>
-        <a href="https://www.linkedin.com/" target="_blank" class="social-btn"><i class="bi bi-linkedin"></i></a>
-        <a href="mailto:contact@mssd.tn" class="social-btn"><i class="bi bi-envelope"></i></a>
-      </div>
+      
     </div>
   </div>
 </section>
+<!-- Mission & Excellence -->
+<section class="py-20" style="background-color: #f2f7fa;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Left Content -->
+      <div>
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #0067b1; text-transform: uppercase; margin-bottom: 16px;">
+          {{ t('about.commitment') }}
+        </div>
+        <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 24px;">
+          {{ t('about.commitment.title') }}
+        </h2>
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751; margin-bottom: 32px;">
+          <p style="margin-bottom: 16px;">
+            {{ t('about.commitment.p1') }}
+          </p>
+          <p>
+            {{ t('about.commitment.p2') }}
+          </p>
+        </div>
+        <a routerLink="/formations" 
+           class="inline-flex items-center justify-center px-8 py-4 rounded transition-all hover:scale-105"
+           style="background-color: #0067b1; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(0, 103, 177, 0.2);">
+          {{ t('about.commitment.button') }}
+          <i class="bi bi-arrow-right ml-2"></i>
+        </a>
+      </div>
+      
+      <!-- Right Stats Grid -->
+      <div class="grid grid-cols-2 gap-4">
+        
+        <!-- Column 1 -->
+        <div class="space-y-4 pt-12">
+          <div class="rounded-lg overflow-hidden" style="height: 256px; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+            <img src="assets/img/formation-2.jpg" 
+                 alt="Collaborative training session" 
+                 class="w-full h-full object-cover">
+          </div>
+          <div class="p-8 rounded-lg" style="background-color: #0067b1; color: #ffffff; border-radius: 0.5rem;">
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 700; line-height: 1;">
+              20+
+            </div>
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 8px; opacity: 0.9;">
+              {{ t('about.stats.years') }}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Column 2 -->
+        <div class="space-y-4">
+          <div class="p-8 rounded-lg" style="background-color: #004f89; color: #ffffff; border-radius: 0.5rem;">
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 700; line-height: 1;">
+              500+
+            </div>
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 8px; opacity: 0.9;">
+              {{ t('about.stats.clients') }}
+            </div>
+          </div>
+          <div class="rounded-lg overflow-hidden" style="height: 320px; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+            <img src="assets/img/formation-3.jpg" 
+                 alt="Professional training environment" 
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+<!-- Founder Section -->
+<section class="py-20" style="background-color: #ffffff;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Image Column -->
+      <div class="lg:col-span-5">
+        <div class="rounded-lg overflow-hidden relative" style="box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04); border-radius: 0.5rem;">
+          <img src="assets/img/formation-9.jpg" 
+               alt="Tarek Hassine - Founder & Strategic Expert" 
+               class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+               style="aspect-ratio: 3/4;">
+          <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 50%, rgba(0, 79, 137, 0.8) 100%);"></div>
+          <div class="absolute bottom-8 left-8">
+            <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 32px; font-weight: 600; color: #ffffff; margin-bottom: 4px;">
+              Tarek Ben Hassine
+            </h3>
+            <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #d2e4ff; letter-spacing: 0.05em;">
+              Founder &amp; Strategic Expert
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Column -->
+      <div class="lg:col-span-7 flex flex-col justify-center">
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #0067b1; text-transform: uppercase; margin-bottom: 16px;">
+          {{ t('about.founder.label') }}
+        </div>
+        <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 24px;">
+          {{ t('about.founder.title') }}
+        </h2>
+        
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751; margin-bottom: 24px;">
+          <p style="font-weight: 600; color: #0067b1; margin-bottom: 16px;">
+            {{ t('about.founder.subtitle') }}
+          </p>
+          <p style="margin-bottom: 16px;">
+            {{ t('about.founder.p1') }}
+          </p>
+          <p style="margin-bottom: 16px;">
+            {{ t('about.founder.p2') }}
+          </p>
+          <p>
+            {{ t('about.founder.p3') }}
+          </p>
+        </div>
+        
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #0067b1; margin-bottom: 12px;">
+          {{ t('about.founder.services') }}
+        </div>
+        <div class="grid grid-cols-2 gap-3" style="margin-bottom: 24px;">
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+            • {{ t('about.founder.service1') }}<br>
+            • {{ t('about.founder.service2') }}<br>
+            • {{ t('about.founder.service3') }}<br>
+            • {{ t('about.founder.service4') }}<br>
+            • {{ t('about.founder.service5') }}
+          </div>
+          <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+            • {{ t('about.founder.service6') }}<br>
+            • {{ t('about.founder.service7') }}<br>
+            • {{ t('about.founder.service8') }}<br>
+            • {{ t('about.founder.service9') }}<br>
+            • {{ t('about.founder.service10') }}
+          </div>
+        </div>
+        
+        <!-- Testimonial -->
+        <div class="flex items-center gap-6 p-6 rounded-lg" style="background-color: #f2f7fa; border-left: 4px solid #0067b1; border-radius: 0.5rem;">
+          <div class="flex -space-x-2">
+            <div class="w-12 h-12 rounded-full" style="background-color: #d2e4ff; border: 2px solid #ffffff;"></div>
+            <div class="w-12 h-12 rounded-full" style="background-color: #a0c9ff; border: 2px solid #ffffff;"></div>
+            <div class="w-12 h-12 rounded-full" style="background-color: #0067b1; border: 2px solid #ffffff;"></div>
+          </div>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; font-style: italic; color: #004f89;">
+            {{ t('about.founder.quote') }}
+          </p>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+<!-- Values & Impact -->
+<section class="py-20" style="background-color: #f9f9fc;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px;">
+        {{ t('about.values.title') }}
+      </h2>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751;">
+        {{ t('about.values.subtitle') }}
+      </p>
+    </div>
+    
+    <!-- Values Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Innovation -->
+      <div class="group bg-white p-8 rounded-lg transition-all hover:shadow-lg" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-14 h-14 rounded flex items-center justify-center mb-6 group-hover:bg-opacity-100 transition-colors" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-lightbulb text-3xl" style="color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('about.values.innovation') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('about.values.innovation.desc') }}
+        </p>
+      </div>
+      
+      <!-- Proximity -->
+      <div class="group bg-white p-8 rounded-lg transition-all hover:shadow-lg" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-14 h-14 rounded flex items-center justify-center mb-6 group-hover:bg-opacity-100 transition-colors" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-people text-3xl" style="color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('about.values.proximity') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('about.values.proximity.desc') }}
+        </p>
+      </div>
+      
+      <!-- Performance -->
+      <div class="group bg-white p-8 rounded-lg transition-all hover:shadow-lg" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-14 h-14 rounded flex items-center justify-center mb-6 group-hover:bg-opacity-100 transition-colors" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-graph-up-arrow text-3xl" style="color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('about.values.performance') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('about.values.performance.desc') }}
+        </p>
+      </div>
+      
+      <!-- International -->
+      <div class="group bg-white p-8 rounded-lg transition-all hover:shadow-lg" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-14 h-14 rounded flex items-center justify-center mb-6 group-hover:bg-opacity-100 transition-colors" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-globe text-3xl" style="color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('about.values.international') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('about.values.international.desc') }}
+        </p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+<!-- CTA Section -->
+<section class="py-24" style="background-color: #004f89;">
+  <div class="container mx-auto px-6 text-center" style="max-width: 1280px;">
+    <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #ffffff; margin-bottom: 16px;">
+      {{ t('about.cta.title') }}
+    </h2>
+    <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 400; line-height: 32px; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; max-width: 640px; margin-left: auto; margin-right: auto;">
+      {{ t('about.cta.subtitle') }}
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button routerLink="/contact" 
+         class="inline-flex items-center justify-center px-10 py-4 rounded transition-all hover:scale-105"
+         style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);">
+        {{ t('about.cta.button1') }}
+      </button>
+      <button routerLink="/annexes" 
+         class="inline-flex items-center justify-center px-10 py-4 rounded transition-all hover:bg-white hover:bg-opacity-10"
+         style="background-color: transparent; color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.5); font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; border-radius: 0.25rem;">
+        {{ t('about.cta.button2') }}
+      </button>
+    </div>
+  </div>
+</section>
+
+</main>

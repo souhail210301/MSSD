@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -36,6 +37,7 @@ public class Formation {
     // New theme relationship
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id")
+    @JsonBackReference
     private Theme theme;
     
     @Column(nullable = false, precision = 10, scale = 2)

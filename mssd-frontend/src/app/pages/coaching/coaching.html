@@ -1,0 +1,404 @@
+<main class="bg-[#f9f9fc]" style="padding-top: 80px;">
+
+<!-- Hero Section -->
+<section class="coaching-hero relative overflow-hidden py-24">
+  <!-- Decorative Background -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.2);"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.1);"></div>
+  </div>
+
+  <div class="container mx-auto px-6 relative z-10" style="max-width: 1280px;">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left Content -->
+      <div>
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded mb-6" 
+             style="background-color: rgba(255, 255, 255, 0.1); border-radius: 0.25rem; backdrop-filter: blur(10px);">
+          <i class="bi bi-person-workspace" style="color: #d2e4ff;"></i>
+          <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #d2e4ff; text-transform: uppercase;">
+            {{ t('coaching.hero.badge') }}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 24px;">
+          {{ t('coaching.hero.title') }}
+        </h1>
+
+        <!-- Subtitle -->
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: rgba(255, 255, 255, 0.9); margin-bottom: 32px;">
+          {{ t('coaching.hero.subtitle') }}
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap gap-4">
+          <button routerLink="/contact" 
+                  class="inline-flex items-center gap-2 px-8 py-4 rounded transition-all hover:scale-105"
+                  style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);">
+            <i class="bi bi-calendar-check"></i>
+            <span>{{ t('coaching.hero.cta-primary') }}</span>
+          </button>
+          <button routerLink="/about" 
+                  class="inline-flex items-center gap-2 px-8 py-4 rounded transition-all hover:bg-white/10"
+                  style="background-color: rgba(255, 255, 255, 0.1); color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; border-radius: 0.25rem; border: 2px solid rgba(255, 255, 255, 0.3);">
+            <span>{{ t('coaching.hero.cta-secondary') }}</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Image -->
+      <div class="relative">
+        <div class="rounded-lg overflow-hidden" style="border-radius: 0.5rem; box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.2);">
+          <img src="assets/img/formation-1.jpg" 
+               alt="Executive Coaching" 
+               class="w-full h-auto"
+               style="object-fit: cover;">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-20" style="background-color: #ffffff;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #0067b1; text-transform: uppercase; margin-bottom: 16px;">
+        {{ t('coaching.services.label') }}
+      </div>
+      <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px;">
+        {{ t('coaching.services.title') }}
+      </h2>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: #414751;">
+        {{ t('coaching.services.subtitle') }}
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Individual Coaching -->
+      <div class="service-card bg-white rounded-lg p-8" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="icon-circle mb-6">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('coaching.service1.title') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751; margin-bottom: 20px;">
+          {{ t('coaching.service1.description') }}
+        </p>
+        <ul class="space-y-3">
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service1.benefit1') }}
+            </span>
+          </li>
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service1.benefit2') }}
+            </span>
+          </li>
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service1.benefit3') }}
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Team Coaching -->
+      <div class="service-card bg-white rounded-lg p-8" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="icon-circle mb-6">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('coaching.service2.title') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751; margin-bottom: 20px;">
+          {{ t('coaching.service2.description') }}
+        </p>
+        <ul class="space-y-3">
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service2.benefit1') }}
+            </span>
+          </li>
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service2.benefit2') }}
+            </span>
+          </li>
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service2.benefit3') }}
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Organizational Coaching -->
+      <div class="service-card bg-white rounded-lg p-8" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="icon-circle mb-6">
+          <i class="bi bi-building"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 12px;">
+          {{ t('coaching.service3.title') }}
+        </h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751; margin-bottom: 20px;">
+          {{ t('coaching.service3.description') }}
+        </p>
+        <ul class="space-y-3">
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service3.benefit1') }}
+            </span>
+          </li>
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service3.benefit2') }}
+            </span>
+          </li>
+          <li class="benefit-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: #414751;">
+              {{ t('coaching.service3.benefit3') }}
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Detailed Coaching Types Section -->
+<section class="py-20" style="background-color: #f9f9fc;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    
+    <!-- Individual Coaching -->
+    <div class="mb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Content -->
+        <div>
+          <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 36px; font-weight: 600; line-height: 44px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px;">
+            Coaching Individuel
+          </h2>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 16px; font-style: italic;">
+            « Marcher sans peur dans la direction de vos rêves, vivez la vie que vous avez imaginée. »
+          </p>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 20px;">
+            Chaque individu possède en lui un potentiel inexploité qui ne demande qu'à éclore. MSSD sera à chaque instant à vos côtés pour vous apporter des solutions instantanées, efficaces et qui vous permettront au quotidien de faire ressortir ce gigantesque potentiel qui fera votre succès dans vos projets.
+          </p>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751;">
+            Aujourd'hui, MSSD vous offre cette possibilité de réveiller le formidable potentiel qui sommeille en vous et qui vous permet de mener enfin la vie heureuse que vous méritez dans votre domaine professionnel.
+          </p>
+        </div>
+        <!-- Icon -->
+        <div class="flex justify-center lg:justify-end">
+          <div class="w-80 h-80 rounded-lg flex items-center justify-center" 
+               style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%); border-radius: 0.5rem;">
+            <i class="bi bi-person-fill" style="font-size: 120px; color: #ffffff; opacity: 0.9;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Coaching -->
+    <div class="mb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Icon -->
+        <div class="flex justify-center lg:justify-start order-2 lg:order-1">
+          <div class="w-80 h-80 rounded-lg flex items-center justify-center" 
+               style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%); border-radius: 0.5rem;">
+            <i class="bi bi-people-fill" style="font-size: 120px; color: #ffffff; opacity: 0.9;"></i>
+          </div>
+        </div>
+        <!-- Content -->
+        <div class="order-1 lg:order-2">
+          <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 36px; font-weight: 600; line-height: 44px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px;">
+            Coaching du Groupe
+          </h2>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 16px; font-style: italic;">
+            « Développer les bénéfices et la productivité de votre entreprise »
+          </p>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 20px;">
+            Le travail en équipe est une caractéristique fondatrice et fondamentale de Dirigeants et Partenaires. Le travail en groupe produit un effet miroir différent et complémentaire de celui du consultant, favorise la préparation aux situations réelles, crée un élan et contribue à la dynamique de réussite.
+          </p>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 16px;">
+            MSSD vous accompagne à 4 niveaux :
+          </p>
+          <ul style="margin-bottom: 20px;">
+            <li style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 12px; display: flex; gap: 12px;">
+              <span style="color: #0067b1; font-weight: 600; flex-shrink: 0;">1.</span>
+              <span><strong>Au niveau du sens et du travail de la vision :</strong> vision partagée du projet de l'équipe</span>
+            </li>
+            <li style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 12px; display: flex; gap: 12px;">
+              <span style="color: #0067b1; font-weight: 600; flex-shrink: 0;">2.</span>
+              <span><strong>Au niveau de la vie opérationnelle :</strong> Missions, fonctions et résultats</span>
+            </li>
+            <li style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 12px; display: flex; gap: 12px;">
+              <span style="color: #0067b1; font-weight: 600; flex-shrink: 0;">3.</span>
+              <span><strong>Au niveau de la régularisation du groupe :</strong> gérer les problèmes relationnels au sein de l'équipe</span>
+            </li>
+            <li style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; display: flex; gap: 12px;">
+              <span style="color: #0067b1; font-weight: 600; flex-shrink: 0;">4.</span>
+              <span><strong>Au niveau de la formation :</strong> développer les compétences (management, communication, leadership…)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organizational Coaching -->
+    <div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Content -->
+        <div>
+          <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 36px; font-weight: 600; line-height: 44px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px;">
+            Coaching Organisationnel
+          </h2>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 16px; font-style: italic;">
+            « Optimisez votre potentiel et révélez votre "génie personnel", tout en contribuant aux objectifs de l'organisation. »
+          </p>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 20px;">
+            Le coaching d'organisation réunit un grand groupe formel composé de sous-ensembles cohérents autour d'objectifs opérationnels et mesurables dans un contexte particulier. Il est généralement question de l'évolution de l'organisation dans le cadre d'une mutation profonde, d'une transformation qui lui est essentielle, d'une évolution ou d'un challenge qui lui sera particulièrement important, voire d'un enjeu institutionnel fondamental.
+          </p>
+          <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 28px; color: #414751;">
+            MSSD vous offre une démarche spécifique qui vise l'adaptation et l'alignement de toutes les composantes de votre entreprise dans des situations de fort changement (restructurations, fusions, internationalisation…) autour d'une vision, des valeurs et d'une stratégie communes qui seront déployées de façon opérationnelle et cohérente au travers de l'organisation.
+          </p>
+        </div>
+        <!-- Icon -->
+        <div class="flex justify-center lg:justify-end">
+          <div class="w-80 h-80 rounded-lg flex items-center justify-center" 
+               style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%); border-radius: 0.5rem;">
+            <i class="bi bi-building" style="font-size: 120px; color: #ffffff; opacity: 0.9;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Process Section -->
+<section class="py-20" style="background-color: #f2f7fa;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #0067b1; text-transform: uppercase; margin-bottom: 16px;">
+        {{ t('coaching.process.label') }}
+      </div>
+      <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #1a1c1e; margin-bottom: 16px;">
+        {{ t('coaching.process.title') }}
+      </h2>
+    </div>
+
+    <!-- Process Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Step 1 -->
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" 
+             style="background-color: #0067b1; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 700;">
+          1
+        </div>
+        <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+          {{ t('coaching.step1.title') }}
+        </h4>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('coaching.step1.description') }}
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" 
+             style="background-color: #0067b1; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 700;">
+          2
+        </div>
+        <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+          {{ t('coaching.step2.title') }}
+        </h4>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('coaching.step2.description') }}
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" 
+             style="background-color: #0067b1; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 700;">
+          3
+        </div>
+        <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+          {{ t('coaching.step3.title') }}
+        </h4>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('coaching.step3.description') }}
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" 
+             style="background-color: #0067b1; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 700;">
+          4
+        </div>
+        <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+          {{ t('coaching.step4.title') }}
+        </h4>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+          {{ t('coaching.step4.description') }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-24">
+  <div class="container mx-auto px-6 text-center" style="max-width: 1280px;">
+    <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #ffffff; margin-bottom: 16px;">
+      {{ t('coaching.cta.title') }}
+    </h2>
+    <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 400; line-height: 32px; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; max-width: 640px; margin-left: auto; margin-right: auto;">
+      {{ t('coaching.cta.subtitle') }}
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button routerLink="/contact" 
+              class="inline-flex items-center gap-2 px-12 py-5 rounded transition-all hover:scale-105"
+              style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);">
+        <i class="bi bi-calendar-check-fill"></i>
+        <span>{{ t('coaching.cta.button') }}</span>
+      </button>
+      <button routerLink="/calendar" 
+              class="inline-flex items-center gap-2 px-12 py-5 rounded transition-all hover:bg-white/10"
+              style="background-color: rgba(255, 255, 255, 0.1); color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; border-radius: 0.25rem; border: 2px solid rgba(255, 255, 255, 0.3);">
+        <span>{{ t('coaching.cta.button-secondary') }}</span>
+        <i class="bi bi-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+</main>

@@ -1,117 +1,80 @@
-<!-- Toast Notifications -->
+﻿<!-- Toast Notifications -->
 <app-toast></app-toast>
 
+<!-- Global Language Toggle Button (visible on all pages) -->
+<button class="global-lang-toggle" (click)="toggleLanguage()" [title]="currentLanguage === 'fr' ? 'Switch to English' : 'Passer au français'">
+  <i class="bi bi-translate"></i>
+  <span>{{ currentLanguage === 'fr' ? 'EN' : 'FR' }}</span>
+</button>
+
 <!-- Main Content -->
-<main class="main">
+<main>
   <router-outlet></router-outlet>
 </main>
 
 <!-- Modern Footer (hidden on admin routes) -->
-<footer class="footer-modern" *ngIf="!isAdminRoute">
-  <div class="container">
-    <div class="row">
-      <!-- Company Info -->
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="footer-section">
-          <div class="footer-brand">
-            <img src="./assets/img/logo1.png" alt="MSSD Logo" class="footer-logo" onerror="this.style.display='none';">
-            <h4>MSSD</h4>
-          </div>
-          <p class="footer-description">
-            Expert en formation professionnelle, nous accompagnons les entreprises et particuliers dans le développement de leurs compétences depuis plus de 10 ans.
-          </p>
-          <div class="social-links">
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
-              <i class="bi bi-facebook"></i>
-            </a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter">
-              <i class="bi bi-twitter"></i>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
-              <i class="bi bi-instagram"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Links -->
-      <div class="col-lg-2 col-md-6 mb-4">
-        <div class="footer-section">
-          <h5 class="footer-title">{{ t('footer.navigation') || 'Navigation' }}</h5>
-          <ul class="footer-links">
-            <li><a routerLink="/home">{{ t('nav.home') || 'Accueil' }}</a></li>
-            <li><a routerLink="/about">{{ t('nav.about') || 'À propos' }}</a></li>
-            <li><a routerLink="/annexes">{{ t('nav.annexes') || 'Formations' }}</a></li>
-            <li><a routerLink="/services">Services</a></li>
-            <li><a routerLink="/portfolio">{{ t('nav.portfolio') || 'Portfolio' }}</a></li>
-            <li><a routerLink="/blog">{{ t('nav.blog') || 'Blog' }}</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Services -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="footer-section">
-          <h5 class="footer-title">{{ t('footer.services') || 'Nos Services' }}</h5>
-          <ul class="footer-links">
-            <li><a routerLink="/annexes">Formation Leadership</a></li>
-            <li><a routerLink="/annexes">Marketing Digital</a></li>
-            <li><a routerLink="/annexes">Qualité &amp; Processus</a></li>
-            <li><a routerLink="/annexes">Coaching Professionnel</a></li>
-            <li><a routerLink="/services">Consulting</a></li>
-            <li><a routerLink="/annexes/request">Demander un devis</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="footer-section">
-          <h5 class="footer-title">{{ t('footer.contact') || 'Contact' }}</h5>
-          <div class="contact-info">
-            <div class="contact-item">
-              <i class="bi bi-geo-alt"></i>
-              <span>123 Rue de la Formation<br>75001 Paris, France</span>
-            </div>
-            <div class="contact-item">
-              <i class="bi bi-telephone"></i>
-              <span>+33 1 23 45 67 89</span>
-            </div>
-            <div class="contact-item">
-              <i class="bi bi-envelope"></i>
-              <span>contact&#64;mssd.fr</span>
-            </div>
-            <div class="contact-item">
-              <i class="bi bi-clock"></i>
-              <span>Lun - Ven: 9h00 - 18h00</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <p class="copyright">&copy; {{ currentYear }} MSSD. Tous droits réservés.</p>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <div class="footer-bottom-links">
-            <a routerLink="/contact">{{ t('footer.privacy') || 'Politique de confidentialité' }}</a>
-            <a routerLink="/contact">{{ t('footer.terms') || 'Conditions d\'utilisation' }}</a>
-            <a routerLink="/contact">{{ t('footer.legal') || 'Mentions légales' }}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<footer *ngIf="!isAdminRoute" class="w-full border-t border-surface-container-highest bg-white">
+<div class="max-w-screen-2xl mx-auto px-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-20 gap-12">
+<div class="lg:col-span-2">
+<div class="flex items-center space-x-2 mb-8">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg">insights</span>
+</div>
+<div class="text-2xl font-extrabold tracking-tighter text-primary">
+                            MSSD Training
+                        </div>
+</div>
+<p class="text-on-surface-variant max-w-sm font-light leading-relaxed">
+                        {{ t('footer.description') || 'Accompagnement premium en stratégie commerciale et management. Nous aidons les entreprises à atteindre l\'excellence opérationnelle par l\'humain et l\'innovation.' }}
+                    </p>
+</div>
+<div>
+<h5 class="font-headline font-extrabold text-primary mb-6 text-sm uppercase tracking-widest">{{ t('footer.useful-links') || 'Liens Utiles' }}</h5>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-tertiary transition-colors text-sm font-medium" href="#">{{ t('footer.training-programs') || 'Nos Formations' }}</a></li>
+<li><a class="text-on-surface-variant hover:text-tertiary transition-colors text-sm font-medium" href="#">{{ t('footer.executive-coaching') || 'Coaching Dirigeant' }}</a></li>
+<li><a class="text-on-surface-variant hover:text-tertiary transition-colors text-sm font-medium" href="#">{{ t('footer.case-studies') || 'Études de cas' }}</a></li>
+<li><a class="text-on-surface-variant hover:text-tertiary transition-colors text-sm font-medium" href="#">{{ t('nav.contact') || 'Contact' }}</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-headline font-extrabold text-primary mb-6 text-sm uppercase tracking-widest">{{ t('footer.follow-us') || 'Suivez-nous' }}</h5>
+<div class="flex space-x-4">
+<a class="w-10 h-10 rounded-full border border-surface-container-highest flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" 
+   href="https://www.linkedin.com/company/mssd/posts/?feedView=all" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   [title]="'LinkedIn'">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full border border-surface-container-highest flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" 
+   href="https://www.facebook.com/MSSD2016FormationConsulting" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   [title]="'Facebook'">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center py-10 border-t border-surface-container-highest">
+<div class="font-headline text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-6 md:mb-0">
+                    {{ t('footer.copyright') || '© ' + currentYear + ' MSSD Training. Tous droits réservés.' }}
+                </div>
+<div class="flex space-x-8">
+<a class="font-headline text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-tertiary transition-colors" href="#">{{ t('footer.privacy') || 'Confidentialité' }}</a>
+<a class="font-headline text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-tertiary transition-colors" href="#">{{ t('footer.terms') || 'Conditions' }}</a>
+<a class="font-headline text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-tertiary transition-colors" href="#">{{ t('footer.legal') || 'Mentions Légales' }}</a>
+</div>
+</div>
+</div>
 </footer>
 
 <!-- Scroll to Top Button (hidden on admin routes) -->
 <button class="scroll-to-top" *ngIf="!isAdminRoute" (click)="scrollToTop()" [class.visible]="showScrollTop">
   <i class="bi bi-arrow-up"></i>
 </button>
+
+
+

@@ -1,182 +1,384 @@
 <!-- Services Hero -->
-<section class="services-hero">
-  <div class="container">
-    <h1 class="services-hero-title">Nos Formations</h1>
-    <p class="services-hero-subtitle">Développez vos compétences avec nos formations professionnelles certifiantes</p>
+<main>
+<section class="relative py-20 overflow-hidden" style="background-color: #004f89; padding-top: 120px;">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.2);"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.1);"></div>
+  </div>
+  
+  <div class="container mx-auto px-6 relative z-10 text-center" style="max-width: 1280px;">
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded mb-6" 
+         style="background-color: rgba(255, 255, 255, 0.1); border-radius: 0.25rem; backdrop-filter: blur(10px);">
+      <i class="bi bi-collection-fill" style="color: #d2e4ff;"></i>
+      <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #d2e4ff; text-transform: uppercase;">
+        Notre Expertise
+      </span>
+    </div>
+    <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 16px;">
+      Nos Services
+    </h1>
+    <p class="max-w-3xl mx-auto" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: rgba(255, 255, 255, 0.9);">
+      Découvrez notre gamme complète de formations, coaching, diagnostic et consulting
+    </p>
   </div>
 </section>
 
-<!-- Services Content -->
-<section class="services-section">
-  <div class="container">
-    <!-- Loading -->
-    @if (loading) {
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Chargement des formations...</p>
-      </div>
-    }
-
-    <!-- Error -->
-    @if (error && !loading) {
-      <div class="error-state">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-        <p>{{ error }}</p>
-      </div>
-    }
-
-    <!-- Formations Grid -->
-    @if (!loading && !error) {
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6" *ngFor="let formation of paginatedFormations; let i = index">
-          <div class="service-card">
-            <div class="service-card-header">
-              @if (formation.imageUrl) {
-                <img [src]="getImageUrl(formation.imageUrl)" [alt]="formation.title" class="service-card-img">
-              } @else {
-                <div class="service-card-icon">
-                  <i class="bi bi-mortarboard-fill"></i>
-                </div>
-              }
-            </div>
-
-            <div class="service-card-body">
-              <h3 class="service-card-title">{{ formation.title }}</h3>
-              <p class="service-card-desc">{{ formation.description }}</p>
-
-              <div class="service-meta">
-                <div class="meta-item">
-                  <i class="bi bi-tag"></i>
-                  <span>{{ formation.category }}</span>
-                </div>
-                <div class="meta-item">
-                  <i class="bi bi-bar-chart"></i>
-                  <span>{{ formation.level }}</span>
-                </div>
-                <div class="meta-item">
-                  <i class="bi bi-clock"></i>
-                  <span>{{ formation.duration }}</span>
-                </div>
-                <div class="meta-item price">
-                  <i class="bi bi-currency-exchange"></i>
-                  <span>{{ formation.price | currency:'EUR':'symbol':'1.0-0' }}</span>
-                </div>
-              </div>
-
-              <!-- Booking Form -->
-              @if (bookingStatus[formation.id] !== 'success') {
-                <form (ngSubmit)="submitBooking(formation.id, $event)" class="booking-form">
-                  <input type="text" class="form-input" placeholder="Votre nom"
-                         [(ngModel)]="bookingForms[formation.id].name" [name]="'name-'+formation.id" required>
-                  <input type="email" class="form-input" placeholder="Votre email"
-                         [(ngModel)]="bookingForms[formation.id].email" [name]="'email-'+formation.id" required>
-                  <input type="text" class="form-input" placeholder="Téléphone"
-                         [(ngModel)]="bookingForms[formation.id].phone" [name]="'phone-'+formation.id" required>
-                  <input type="text" class="form-input" placeholder="Entreprise"
-                         [(ngModel)]="bookingForms[formation.id].company" [name]="'company-'+formation.id" required>
-                  <button type="submit" class="btn-book" [disabled]="bookingStatus[formation.id] === 'submitting'">
-                    @if (bookingStatus[formation.id] === 'submitting') {
-                      <span class="spinner-sm"></span> Envoi...
-                    } @else {
-                      <i class="bi bi-send"></i> Réserver
-                    }
-                  </button>
-                  @if (bookingStatus[formation.id] === 'error') {
-                    <p class="field-error">{{ bookingError[formation.id] }}</p>
-                  }
-                </form>
-              } @else {
-                <div class="success-msg">
-                  <i class="bi bi-check-circle-fill"></i> Réservation réussie !
-                </div>
-              }
-
-              <button class="btn-reviews" (click)="goToReviews(formation.id)">
-                <i class="bi bi-star"></i> Voir les avis
-              </button>
-            </div>
-          </div>
+<!-- Services Grid -->
+<section class="py-20" style="background-color: #f9f9fc;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Formation Partie 1 -->
+      <div class="bg-white rounded-lg p-8 transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-16 h-16 rounded flex items-center justify-center mb-6" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-book-fill" style="font-size: 28px; color: #0067b1;"></i>
         </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 16px;">
+          Formation Partie 1
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Marketing stratégique et opérationnel
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Communication institutionnelle
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Communication interpersonnelle
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              La gestion prévisionnelle des emplois et des compétences GPEC
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Management par le leadership
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Management par le coaching
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Management par le processus CRM
+            </span>
+          </li>
+        </ul>
       </div>
 
-      <!-- Pagination -->
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalItems]="totalItems"
-        [itemsPerPage]="itemsPerPage"
-        (pageChange)="onPageChange($event)">
-      </app-pagination>
-    }
-  </div>
-</section>
-
-<!-- Custom Request Section -->
-<section class="custom-request-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="request-card">
-          <h3 class="request-title">
-            <i class="bi bi-chat-dots"></i> Demande personnalisée
-          </h3>
-          <p class="request-subtitle">Vous ne trouvez pas ce qu'il vous faut ? Décrivez votre besoin et nous reviendrons vers vous !</p>
-
-          <form (ngSubmit)="submitCustomRequest($event)" #customRequestForm="ngForm">
-            <div class="row gy-3">
-              <div class="col-md-6">
-                <input type="text" class="form-input" placeholder="Nom de l'entreprise *"
-                       [(ngModel)]="customRequest.companyName" name="companyName" required>
-              </div>
-              <div class="col-md-6">
-                <input type="text" class="form-input" placeholder="Personne de contact *"
-                       [(ngModel)]="customRequest.contactPerson" name="contactPerson" required>
-              </div>
-              <div class="col-md-6">
-                <input type="email" class="form-input" placeholder="Email *"
-                       [(ngModel)]="customRequest.email" name="email" required>
-              </div>
-              <div class="col-md-6">
-                <input type="text" class="form-input" placeholder="Téléphone"
-                       [(ngModel)]="customRequest.phone" name="phone">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-input" placeholder="Sujet *"
-                       [(ngModel)]="customRequest.subject" name="subject" required>
-              </div>
-              <div class="col-12">
-                <textarea class="form-input form-textarea" placeholder="Détails de votre demande *"
-                          [(ngModel)]="customRequest.details" name="details" rows="4" required></textarea>
-              </div>
-              <div class="col-md-6">
-                <input type="number" class="form-input" placeholder="Budget (optionnel)"
-                       [(ngModel)]="customRequest.budget" name="budget">
-              </div>
-              <div class="col-md-6">
-                <input type="date" class="form-input" placeholder="Date souhaitée"
-                       [(ngModel)]="customRequest.preferredStartDate" name="preferredStartDate">
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn-submit" [disabled]="isSubmittingCustomRequest">
-                  @if (isSubmittingCustomRequest) {
-                    <span class="spinner-sm"></span> Envoi en cours...
-                  } @else {
-                    <i class="bi bi-send"></i> Envoyer la demande
-                  }
-                </button>
-              </div>
-            </div>
-          </form>
-
-          @if (customRequestSuccess) {
-            <div class="success-msg mt-3">
-              <i class="bi bi-check-circle-fill"></i> Votre demande a été envoyée avec succès !
-            </div>
-          }
-          @if (customRequestError) {
-            <p class="field-error mt-3">{{ customRequestError }}</p>
-          }
+      <!-- Formation Partie 2 -->
+      <div class="bg-white rounded-lg p-8 transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-16 h-16 rounded flex items-center justify-center mb-6" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-journal-text" style="font-size: 28px; color: #0067b1;"></i>
         </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 16px;">
+          Formation Partie 2
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              La gestion des réclamations
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Processus de Recrutement
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              La formation des formateurs
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Ingénierie de la formation
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Les 11 techniques de vente
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Le service client : 2ème force de vente de l'entreprise
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Tableau de bord commercial
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Tableau de bord entreprise BSC
+            </span>
+          </li>
+        </ul>
       </div>
+
+      <!-- Management Par le Coaching -->
+      <div class="bg-white rounded-lg p-8 transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-16 h-16 rounded flex items-center justify-center mb-6" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-people-fill" style="font-size: 28px; color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 16px;">
+          Management Par le Coaching
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Le coaching
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Le Coaching des commerciaux
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Management par délégation (l'art de déléguer)
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Management participatif
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Management projet
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Développement Personnel -->
+      <div class="bg-white rounded-lg p-8 transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-16 h-16 rounded flex items-center justify-center mb-6" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-person-fill-gear" style="font-size: 28px; color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 16px;">
+          Développement Personnel
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Communication interpersonnelle
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Gestion de stress
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Gestion du temps et des priorités
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Gestion des conflits
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Gestion conflits par l'analyse transactionnelle
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Le Leadership et la conduite du changement
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Le bien être et la programmation neurolinguistique
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              La connaissance de soi et l'intelligence émotionnelle
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Diagnostic Commercial -->
+      <div class="bg-white rounded-lg p-8 transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-16 h-16 rounded flex items-center justify-center mb-6" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-graph-up-arrow" style="font-size: 28px; color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 16px;">
+          Diagnostic Commercial
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Performance globale
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Force de vente
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Distribution
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Stratégie commerciale
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Stratégie marketing
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Back office
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Tableau de bord
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Développement, rentabilité et solvabilité
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Consulting -->
+      <div class="bg-white rounded-lg p-8 transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <div class="w-16 h-16 rounded flex items-center justify-center mb-6" 
+             style="background-color: #d2e4ff; border-radius: 0.25rem;">
+          <i class="bi bi-briefcase-fill" style="font-size: 28px; color: #0067b1;"></i>
+        </div>
+        <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; line-height: 32px; color: #1a1c1e; margin-bottom: 16px;">
+          Consulting
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Stratégie commerciale
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Organisation commerciale Business plan
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Distribution (directe, traditionnelle et GMS)
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Diagnostic commercial
+            </span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="bi bi-check-circle-fill" style="color: #0067b1; font-size: 16px; margin-top: 4px; flex-shrink: 0;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+              Tableau de bord commercial
+            </span>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
+
+<!-- CTA Section -->
+<section class="py-20" style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%);">
+  <div class="container mx-auto px-6 text-center" style="max-width: 1280px;">
+    <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.01em; color: #ffffff; margin-bottom: 16px;">
+      Besoin d'un service personnalisé ?
+    </h2>
+    <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: rgba(255, 255, 255, 0.9); margin-bottom: 32px; max-width: 640px; margin-left: auto; margin-right: auto;">
+      Contactez-nous pour discuter de vos besoins spécifiques et obtenir une solution sur mesure
+    </p>
+    <button routerLink="/contact" 
+            class="inline-flex items-center gap-2 px-12 py-5 rounded transition-all hover:scale-105"
+            style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; border-radius: 0.25rem; box-shadow: 0px 4px 16px rgba(227, 6, 19, 0.3);">
+      <i class="bi bi-envelope-fill"></i>
+      <span>Contactez-nous</span>
+    </button>
+  </div>
+</section>
+</main>

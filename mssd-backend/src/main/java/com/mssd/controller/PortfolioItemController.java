@@ -65,12 +65,44 @@ public class PortfolioItemController {
     @PostMapping("/upload-logo")
     public ResponseEntity<Map<String, String>> uploadLogo(@RequestParam("file") MultipartFile file) {
         try {
+            // Validate file
+            if (file == null || file.isEmpty()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Please select a file to upload");
+                return ResponseEntity.badRequest().body(error);
+            }
+            
+            // Check file size (max 5MB)
+            if (file.getSize() > 5 * 1024 * 1024) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "File size must not exceed 5MB");
+                return ResponseEntity.badRequest().body(error);
+            }
+            
+            // Check file type
+            String contentType = file.getContentType();
+            if (contentType == null || (!contentType.startsWith("image/"))) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Only image files are allowed");
+                return ResponseEntity.badRequest().body(error);
+            }
+            
             String filename = portfolioItemService.uploadLogo(file);
             Map<String, String> response = new HashMap<>();
             response.put("url", filename);
             return ResponseEntity.ok(response);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Failed to upload file: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "An unexpected error occurred: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
 }

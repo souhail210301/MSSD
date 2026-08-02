@@ -52,7 +52,7 @@
           <td><span class="cell-id">#{{ theme.id }}</span></td>
           <td>
             <div class="cell-theme">
-              <div class="theme-icon" *ngIf="theme.iconUrl" [style.background-image]="'url(' + theme.iconUrl + ')'"></div>
+              <div class="theme-icon" *ngIf="theme.iconUrl" [style.background-image]="'url(' + getIconUrl(theme.iconUrl) + ')'"></div>
               <i *ngIf="!theme.iconUrl" class="bi bi-collection theme-icon-placeholder"></i>
               <div>
                 <span class="cell-name">{{ theme.name }}</span>
@@ -112,9 +112,35 @@
           <textarea formControlName="description" rows="3" placeholder="Description du thème de formation..."></textarea>
         </div>
         <div class="form-group form-full">
-          <label>URL de l'icône</label>
-          <input type="url" formControlName="iconUrl" placeholder="https://example.com/icon.png">
-          <span class="form-hint">URL vers une image d'icône pour ce thème</span>
+          <label>Icône du thème</label>
+          <div class="file-upload-container">
+            <!-- File Input -->
+            <input type="file" 
+                   #fileInput
+                   accept="image/*"
+                   (change)="onFileSelected($event)"
+                   style="display: none;">
+            
+            <!-- Upload Button / Preview -->
+            <div *ngIf="!iconPreview" class="file-upload-empty" (click)="fileInput.click()">
+              <i class="bi bi-cloud-upload"></i>
+              <span>Cliquez pour télécharger une icône</span>
+              <small>JPG, PNG, SVG (Max: 2MB)</small>
+            </div>
+            
+            <div *ngIf="iconPreview" class="file-upload-preview">
+              <img [src]="iconPreview" alt="Preview">
+              <div class="file-upload-actions">
+                <button type="button" class="btn-sm btn-secondary" (click)="fileInput.click()">
+                  <i class="bi bi-pencil"></i> Changer
+                </button>
+                <button type="button" class="btn-sm btn-danger" (click)="removeIcon()">
+                  <i class="bi bi-trash3"></i> Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+          <span class="form-hint">Image d'icône pour représenter ce thème (optionnel)</span>
         </div>
         <div class="form-check-row">
           <label class="checkbox-label">
@@ -125,8 +151,13 @@
       </div>
       <div class="modal-card-footer">
         <button type="button" class="btn-cancel" (click)="closeModal()">Annuler</button>
-        <button type="submit" class="btn-primary-admin" [disabled]="themeForm.invalid">
-          <i class="bi bi-check-lg"></i> {{ editingTheme ? 'Modifier' : 'Créer' }}
+        <button type="submit" class="btn-primary-admin" [disabled]="themeForm.invalid || uploadingIcon">
+          <span *ngIf="!uploadingIcon">
+            <i class="bi bi-check-lg"></i> {{ editingTheme ? 'Modifier' : 'Créer' }}
+          </span>
+          <span *ngIf="uploadingIcon" class="inline-flex items-center gap-2">
+            <span class="spinner-sm"></span> Téléchargement...
+          </span>
         </button>
       </div>
     </form>

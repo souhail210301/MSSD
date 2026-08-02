@@ -1,33 +1,69 @@
 @use 'sass:color';
 
-$admin-primary: #002b6c;
-$admin-secondary: #e60000;
-$admin-white: #ffffff;
-$admin-bg: #f0f2f5;
-$admin-text: #1e293b;
-$admin-text-muted: #64748b;
-$admin-border: #e2e8f0;
-$admin-radius: 12px;
+// ═══════════════════════════════════════════════════════════════════════════
+// Admin Dashboard — "The Precision Architect"
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// ✅ Cards: surface-lowest, rounded-lg, ambient shadows (no borders)
+// ✅ Inside cards: whitespace separation, not dividers
+// ✅ Stat cards: first card uses Signature Gradient
+// ✅ Typography: Manrope for values/headings, Inter for labels/body
+// ✅ on-surface-variant for metadata (high/low contrast hierarchy)
+// ═══════════════════════════════════════════════════════════════════════════
 
-// Page Header
+// ── Design Tokens ──
+$primary:            #00183d;
+$primary-container:  #002c64;
+$on-primary-ctr:     #3b82f6;
+$tertiary:           #f97316;
+$error:              #ba1a1a;
+
+$surface:            #faf9fe;
+$surface-low:        #f4f3f8;
+$surface-lowest:     #ffffff;
+$surface-high:       #ebeaf2;
+$surface-highest:    #e2e1e9;
+
+$on-surface:         #1a1b1f;
+$on-surface-variant: #44474f;
+$outline-variant:    #c4c6d0;
+
+$radius-lg:          0.5rem;
+$radius-xl:          0.75rem;
+$radius-2xl:         1rem;
+
+$shadow-ambient:     0 4px 32px 0 rgba(26, 27, 31, 0.04);
+$shadow-ambient-md:  0 8px 48px 0 rgba(26, 27, 31, 0.05);
+
+$transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PAGE HEADER
+// ═══════════════════════════════════════════════════════════════════════════
 .page-header {
   margin-bottom: 1.5rem;
 
   .page-title {
-    font-size: 1.65rem;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 1.75rem;
     font-weight: 800;
-    color: $admin-text;
+    color: $on-surface;
     margin: 0;
+    letter-spacing: -0.02em;
   }
 
   .page-subtitle {
-    font-size: 0.88rem;
-    color: $admin-text-muted;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.85rem;
+    color: $on-surface-variant;
     margin: 0.25rem 0 0;
+    font-weight: 400;
   }
 }
 
-// Stats Grid
+// ═══════════════════════════════════════════════════════════════════════════
+// STATS GRID — Ambient Cards with Signature Gradient hero
+// ═══════════════════════════════════════════════════════════════════════════
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -36,177 +72,230 @@ $admin-radius: 12px;
 }
 
 .stat-card {
-  background: $admin-white;
-  border-radius: $admin-radius;
+  // surface-lowest + ambient shadow (no border)
+  background: $surface-lowest;
+  border-radius: $radius-lg;
   padding: 1.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: $shadow-ambient;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: box-shadow 0.25s, transform 0.25s;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-ambient-md;
   }
 
+  // Remove the old colored top border
   &::before {
+    display: none;
+  }
+
+  // ── Accent dot (replaces the 3px top bar) ──
+  &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
+    top: 1rem;
+    right: 1rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
   }
 
-  &.stat-primary::before { background: $admin-primary; }
-  &.stat-success::before { background: #22c55e; }
-  &.stat-info::before { background: #3b82f6; }
-  &.stat-warning::before { background: #f59e0b; }
-  &.stat-calendar::before { background: #8b5cf6; }
-  &.stat-contact::before { background: #06b6d4; }
-  &.stat-danger::before { background: $admin-secondary; }
-  &.stat-active::before { background: #10b981; }
+  // ── First stat card: Signature Gradient ──
+  &.stat-primary {
+    background: linear-gradient(135deg, $primary 0%, $primary-container 100%);
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba($primary, 0.2);
+
+    &::after { background: rgba(255,255,255,0.4); }
+
+    .stat-icon {
+      background: rgba(255, 255, 255, 0.12) !important;
+      color: #fff !important;
+    }
+    .stat-value { color: #fff; }
+    .stat-label { color: rgba(255, 255, 255, 0.7); }
+    .stat-link  { color: rgba(255, 255, 255, 0.85); }
+
+    &:hover {
+      box-shadow: 0 8px 32px 0 rgba($primary, 0.3);
+    }
+  }
+
+  &.stat-success::after { background: #22c55e; }
+  &.stat-info::after    { background: $on-primary-ctr; }
+  &.stat-warning::after { background: #f59e0b; }
+  &.stat-calendar::after { background: #8b5cf6; }
+  &.stat-contact::after { background: #06b6d4; }
+  &.stat-danger::after  { background: $tertiary; }
+  &.stat-active::after  { background: #10b981; }
 }
 
+// ── Stat Icon ──
 .stat-icon {
   width: 42px;
   height: 42px;
-  border-radius: 10px;
+  border-radius: $radius-xl;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
 
-  .stat-primary & { background: rgba($admin-primary, 0.1); color: $admin-primary; }
-  .stat-success & { background: rgba(#22c55e, 0.1); color: #22c55e; }
-  .stat-info & { background: rgba(#3b82f6, 0.1); color: #3b82f6; }
-  .stat-warning & { background: rgba(#f59e0b, 0.1); color: #f59e0b; }
-  .stat-calendar & { background: rgba(#8b5cf6, 0.1); color: #8b5cf6; }
-  .stat-contact & { background: rgba(#06b6d4, 0.1); color: #06b6d4; }
-  .stat-danger & { background: rgba($admin-secondary, 0.1); color: $admin-secondary; }
-  .stat-active & { background: rgba(#10b981, 0.1); color: #10b981; }
+  .stat-primary &  { background: rgba(255,255,255,0.12); color: #fff; }
+  .stat-success &  { background: rgba(#22c55e, 0.08); color: #22c55e; }
+  .stat-info &     { background: rgba($on-primary-ctr, 0.08); color: $on-primary-ctr; }
+  .stat-warning &  { background: rgba(#f59e0b, 0.08); color: #f59e0b; }
+  .stat-calendar & { background: rgba(#8b5cf6, 0.08); color: #8b5cf6; }
+  .stat-contact &  { background: rgba(#06b6d4, 0.08); color: #06b6d4; }
+  .stat-danger &   { background: rgba($tertiary, 0.08); color: $tertiary; }
+  .stat-active &   { background: rgba(#10b981, 0.08); color: #10b981; }
 }
 
-.stat-info {
+// ── Stat name collision fix: .stat-info used for both card variant AND flex container ──
+div.stat-info {
   display: flex;
   flex-direction: column;
 }
 
 .stat-value {
+  font-family: 'Manrope', system-ui, sans-serif;
   font-size: 1.75rem;
   font-weight: 800;
-  color: $admin-text;
+  color: $on-surface;
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .stat-label {
-  font-size: 0.78rem;
-  color: $admin-text-muted;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: $on-surface-variant;
   font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .stat-link {
-  font-size: 0.78rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: $admin-primary;
+  color: $on-primary-ctr;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.25rem;
   margin-top: auto;
+  transition: color 0.15s;
 
   &:hover { text-decoration: underline; }
-
-  i { font-size: 0.7rem; }
+  i { font-size: 0.65rem; }
 }
 
-// Dashboard Grid
+// ═══════════════════════════════════════════════════════════════════════════
+// DASHBOARD GRID & CARDS
+// ═══════════════════════════════════════════════════════════════════════════
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
 }
 
+// Cards: surface-lowest, rounded-lg, ambient shadow, NO border
 .dash-card {
-  background: $admin-white;
-  border-radius: $admin-radius;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  background: $surface-lowest;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-ambient;
   overflow: hidden;
 }
 
+// ── Card Header ──
+// No border-bottom → tonal bg shift
 .dash-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid $admin-border;
+  // Tonal shift instead of border
+  background: $surface-low;
 
   h3 {
-    font-size: 0.95rem;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 0.92rem;
     font-weight: 700;
-    color: $admin-text;
+    color: $on-surface;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    letter-spacing: -0.005em;
 
-    i { color: $admin-primary; }
+    i { color: $on-primary-ctr; }
   }
 }
 
 .btn-dash {
-  font-size: 0.78rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: $admin-primary;
+  color: $on-primary-ctr;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.3rem;
   padding: 0.35rem 0.75rem;
-  border-radius: 6px;
+  border-radius: $radius-lg;
   transition: background 0.15s;
 
-  &:hover { background: rgba($admin-primary, 0.06); }
+  &:hover { background: rgba($on-primary-ctr, 0.06); }
 }
 
 .btn-dash-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: $admin-primary;
+  // Signature gradient
+  background: linear-gradient(135deg, $primary, $primary-container);
   color: #fff;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.82rem;
+  border-radius: $radius-lg;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px 0 rgba($primary, 0.15);
 
-  &:hover { background: color.adjust($admin-primary, $lightness: 8%); }
+  &:hover {
+    box-shadow: 0 4px 20px 0 rgba($primary, 0.25);
+    transform: translateY(-1px);
+  }
 }
 
 .dash-card-body {
   padding: 1.25rem;
 }
 
-// Loading / Empty
+// ═══════════════════════════════════════════════════════════════════════════
+// LOADING & EMPTY STATES
+// ═══════════════════════════════════════════════════════════════════════════
 .dash-loading {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
   padding: 2rem;
-  color: $admin-text-muted;
-  font-size: 0.85rem;
+  color: $on-surface-variant;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
 
   .spinner {
-    width: 24px;
-    height: 24px;
-    border: 3px solid rgba($admin-primary, 0.15);
-    border-top-color: $admin-primary;
+    width: 22px;
+    height: 22px;
+    border: 2.5px solid rgba($on-primary-ctr, 0.12);
+    border-top-color: $on-primary-ctr;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
   }
@@ -219,33 +308,44 @@ $admin-radius: 12px;
 .dash-empty {
   text-align: center;
   padding: 2rem 1rem;
-  color: $admin-text-muted;
+  color: $on-surface-variant;
 
   i {
     font-size: 2rem;
     display: block;
     margin-bottom: 0.5rem;
-    opacity: 0.4;
+    opacity: 0.3;
   }
 
   p {
+    font-family: 'Inter', system-ui, sans-serif;
     margin-bottom: 1rem;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
 }
 
-// Theme List
+// ═══════════════════════════════════════════════════════════════════════════
+// THEME LIST — Whitespace separation, NOT dividers
+// ═══════════════════════════════════════════════════════════════════════════
 .theme-list {
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 }
 
 .theme-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.65rem 0;
-  border-bottom: 1px solid $admin-border;
+  padding: 0.65rem 0.5rem;
+  border-radius: $radius-lg;
+  transition: background 0.15s;
+  // No border-bottom → remove the old divider
+  border-bottom: none;
+
+  &:hover {
+    background: $surface-low;
+  }
 
   &:last-of-type { border-bottom: none; }
 }
@@ -253,12 +353,12 @@ $admin-radius: 12px;
 .theme-item-icon {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
-  background: rgba($admin-primary, 0.08);
+  border-radius: $radius-xl;
+  background: rgba($on-primary-ctr, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $admin-primary;
+  color: $on-primary-ctr;
   flex-shrink: 0;
 
   img {
@@ -276,30 +376,37 @@ $admin-radius: 12px;
 
 .theme-item-name {
   display: block;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 600;
-  font-size: 0.88rem;
-  color: $admin-text;
+  font-size: 0.85rem;
+  color: $on-surface;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .theme-item-meta {
-  font-size: 0.75rem;
-  color: $admin-text-muted;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: $on-surface-variant;
 }
 
+// ── Theme Status Chip ──
 .theme-status {
-  font-size: 0.7rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.68rem;
   font-weight: 600;
-  padding: 0.2rem 0.55rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 20px;
   white-space: nowrap;
+  letter-spacing: 0.01em;
 
-  &.active { background: #dcfce7; color: #166534; }
-  &.inactive { background: #f1f5f9; color: #64748b; }
+  &.active   { background: #dcfce7; color: #166534; }
+  &.inactive { background: $surface-high; color: $on-surface-variant; }
 }
 
+// ── "View All" link ──
+// No border-top → tonal bg shift
 .dash-view-all {
   display: flex;
   align-items: center;
@@ -307,16 +414,22 @@ $admin-radius: 12px;
   gap: 0.35rem;
   padding: 0.75rem;
   margin-top: 0.5rem;
-  font-size: 0.82rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: $admin-primary;
+  color: $on-primary-ctr;
   text-decoration: none;
-  border-top: 1px solid $admin-border;
+  background: $surface-low;
+  border-radius: 0 0 $radius-lg $radius-lg;
 
-  &:hover { text-decoration: underline; }
+  &:hover {
+    background: $surface-high;
+  }
 }
 
-// Quick Links
+// ═══════════════════════════════════════════════════════════════════════════
+// QUICK LINKS
+// ═══════════════════════════════════════════════════════════════════════════
 .quick-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -329,39 +442,45 @@ $admin-radius: 12px;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 0.5rem;
-  border-radius: 10px;
+  border-radius: $radius-xl;
   text-decoration: none;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.15s;
 
-  &:hover { background: $admin-bg; }
+  &:hover {
+    background: $surface-low;
+    transform: translateY(-2px);
+  }
 
   span {
-    font-size: 0.75rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.72rem;
     font-weight: 600;
-    color: $admin-text;
+    color: $on-surface;
   }
 }
 
 .ql-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: $radius-xl;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
 
-  &.ql-blue { background: rgba(#3b82f6, 0.1); color: #3b82f6; }
-  &.ql-purple { background: rgba(#8b5cf6, 0.1); color: #8b5cf6; }
-  &.ql-orange { background: rgba(#f97316, 0.1); color: #f97316; }
-  &.ql-green { background: rgba(#22c55e, 0.1); color: #22c55e; }
-  &.ql-red { background: rgba($admin-secondary, 0.1); color: $admin-secondary; }
-  &.ql-yellow { background: rgba(#eab308, 0.1); color: #eab308; }
-  &.ql-teal { background: rgba(#14b8a6, 0.1); color: #14b8a6; }
-  &.ql-indigo { background: rgba(#6366f1, 0.1); color: #6366f1; }
+  &.ql-blue   { background: rgba($on-primary-ctr, 0.08); color: $on-primary-ctr; }
+  &.ql-purple  { background: rgba(#8b5cf6, 0.08); color: #8b5cf6; }
+  &.ql-orange  { background: rgba($tertiary, 0.08); color: $tertiary; }
+  &.ql-green   { background: rgba(#22c55e, 0.08); color: #22c55e; }
+  &.ql-red     { background: rgba($error, 0.08); color: $error; }
+  &.ql-yellow  { background: rgba(#eab308, 0.08); color: #eab308; }
+  &.ql-teal    { background: rgba(#14b8a6, 0.08); color: #14b8a6; }
+  &.ql-indigo  { background: rgba(#6366f1, 0.08); color: #6366f1; }
 }
 
-// Responsive
+// ═══════════════════════════════════════════════════════════════════════════
+// RESPONSIVE
+// ═══════════════════════════════════════════════════════════════════════════
 @media (max-width: 1200px) {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }

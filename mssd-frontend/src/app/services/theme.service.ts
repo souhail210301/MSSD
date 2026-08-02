@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Theme, FormationSummary } from '../model/annexes.model';
+import { environment } from '../../environments/environment';
 
 export interface ThemeCreateUpdateDto {
   name: string;
@@ -22,27 +23,43 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class ThemeService {
-  private apiUrl = '/api';
+  private apiUrl = environment.apiUrl || '/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log('📌 ThemeService initialized with API URL:', this.apiUrl);
+  }
 
   /**
    * Get all active themes
    */
   getAllThemes(): Observable<Theme[]> {
-    return this.http.get<Theme[]>(`${this.apiUrl}/themes`);
+    const url = `${this.apiUrl}/themes`;
+    console.log('🌐 Fetching all themes:', url);
+    return this.http.get<Theme[]>(url).pipe(
+      tap(response => console.log('✅ Themes list received:', response)),
+      catchError(error => {
+        console.error('🚫 Error fetching themes:', error);
+        return throwError(() => new Error('Erreur lors du chargement des thèmes'));
+      })
+    );
   }
 
   /**
    * Get themes with their formations for the annexes display
    */
   getThemesWithFormations(): Observable<Theme[]> {
-    console.log('🌐 Calling API:', `${this.apiUrl}/themes/with-formations`);
-    return this.http.get<Theme[]>(`${this.apiUrl}/themes/with-formations`).pipe(
-      tap(response => console.log('📨 API Response:', response)),
+    const url = `${this.apiUrl}/themes/with-formations`;
+    console.log('🌐 Calling API:', url);
+    return this.http.get<Theme[]>(url).pipe(
+      tap(response => {
+        console.log('✅ API Response received:', response);
+        console.log('📊 Total themes:', response?.length || 0);
+      }),
       catchError(error => {
         console.error('🚫 API Error:', error);
-        throw error;
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        return throwError(() => new Error(error.error?.message || 'Erreur lors du chargement des formations'));
       })
     );
   }
@@ -51,7 +68,15 @@ export class ThemeService {
    * Get a single theme with its formations by slug
    */
   getThemeWithFormations(slug: string): Observable<Theme> {
-    return this.http.get<Theme>(`${this.apiUrl}/themes/${slug}/formations`);
+    const url = `${this.apiUrl}/themes/${slug}/formations`;
+    console.log('🌐 Fetching theme:', url);
+    return this.http.get<Theme>(url).pipe(
+      tap(response => console.log('✅ Theme loaded:', response)),
+      catchError(error => {
+        console.error('🚫 Error loading theme:', error);
+        return throwError(() => new Error('Erreur lors du chargement du thème'));
+      })
+    );
   }
 
   /**
@@ -99,6 +124,24 @@ export class ThemeService {
   }
 
   /**
+   * Get all themes from admin endpoint with formations
+   */
+  getAdminThemesWithFormations(): Observable<Theme[]> {
+    const url = `${this.apiUrl}/themes/admin`;
+    console.log('🌐 Fetching admin themes:', url);
+    return this.http.get<Theme[]>(url).pipe(
+      tap(response => {
+        console.log('✅ Admin themes received:', response);
+        console.log('📊 Total admin themes:', response?.length || 0);
+      }),
+      catchError(error => {
+        console.error('🚫 Error fetching admin themes:', error);
+        return throwError(() => new Error(error.error?.message || 'Erreur lors du chargement des thèmes admin'));
+      })
+    );
+  }
+
+  /**
    * Fix themes - make sure they are active and have proper data
    */
   fixThemes(): Observable<any> {
@@ -110,5 +153,14 @@ export class ThemeService {
         throw error;
       })
     );
+  }
+
+  /**
+   * Upload theme icon image
+   */
+  uploadThemeIcon(file: File): Observable<{url: string}> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{url: string}>(`${this.apiUrl}/themes/upload-icon`, formData);
   }
 }

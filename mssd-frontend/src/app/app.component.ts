@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationEnd, RouterOutlet, RouterLink } from '@angular/router';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from './shared/toast/toast.component';
 import { filter } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { TranslationService } from './services/translation.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, ToastComponent],
+  imports: [CommonModule, RouterOutlet, ToastComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app-modern.component.scss']
 })
@@ -16,14 +16,25 @@ export class AppComponent implements OnInit {
   showScrollTop = false;
   isAdminRoute = false;
   currentYear = new Date().getFullYear();
+  currentLanguage: string = 'fr';
 
   constructor(
     private router: Router,
     public translationService: TranslationService
-  ) {}
+  ) {
+    // Subscribe to language changes
+    this.translationService.currentLanguage$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
+  }
 
   t(key: string): string {
     return this.translationService.translate(key);
+  }
+
+  toggleLanguage(): void {
+    const newLang = this.currentLanguage === 'fr' ? 'en' : 'fr';
+    this.translationService.switchLanguage(newLang);
   }
 
   ngOnInit(): void {

@@ -25,7 +25,7 @@ export const adminRoutes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'password', component: Password },
-  
+
   // Protected routes (require admin auth)
   {
     path: '',

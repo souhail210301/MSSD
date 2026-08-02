@@ -1,0 +1,44 @@
+// Coaching Page Styles
+// Following MSSD Strategic Growth System Design
+
+.coaching-hero {
+  background: linear-gradient(135deg, #0067b1 0%, #004f89 100%);
+}
+
+.service-card {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 12px 32px rgba(26, 28, 30, 0.12);
+    border-top: 2px solid #0067b1;
+  }
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(0, 103, 177, 0.1);
+  color: #0067b1;
+  font-size: 24px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  
+  i {
+    flex-shrink: 0;
+    color: #0067b1;
+    font-size: 20px;
+  }
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #004f89 0%, #003d6b 100%);
+}

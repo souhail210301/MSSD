@@ -1,90 +1,183 @@
-<!-- Portfolio Hero -->
-<section class="portfolio-hero">
-  <div class="container">
-    <h1 class="portfolio-hero-title">{{ t('portfolio.title') }}</h1>
-    <p class="portfolio-hero-subtitle">{{ t('portfolio.subtitle') }}</p>
+﻿<!-- Portfolio Hero -->
+<section class="relative py-20 overflow-hidden" style="background-color: #004f89; padding-top: 120px;">
+  <!-- Decorative Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.2);"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl" style="background: rgba(255, 255, 255, 0.1);"></div>
+  </div>
+  
+  <div class="container mx-auto px-6 relative z-10 text-center" style="max-width: 1280px;">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded mb-6" 
+         style="background-color: rgba(255, 255, 255, 0.1); border-radius: 0.25rem; backdrop-filter: blur(10px);">
+      <i class="bi bi-trophy-fill" style="color: #d2e4ff;"></i>
+      <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #d2e4ff; text-transform: uppercase;">
+        Success Stories
+      </span>
+    </div>
+    
+    <!-- Title -->
+    <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 16px;">
+      Proven Results. Measurable Impact.
+    </h1>
+    
+    <!-- Subtitle -->
+    <p class="max-w-3xl mx-auto" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: rgba(255, 255, 255, 0.9);">
+      Explore how we've partnered with leading organizations to transform their management structures and accelerate sales performance.
+    </p>
   </div>
 </section>
 
 <!-- Portfolio Content -->
-<section class="portfolio-section">
-  <div class="container">
+<section class="py-20" style="background-color: #f9f9fc;">
+  <div class="container mx-auto px-6" style="max-width: 1280px;">
+    
     <!-- Filters -->
-    <div class="portfolio-filters" *ngIf="!isLoading && !error && portfolios.length > 0">
-      <button
-        *ngFor="let category of getUniqueCategories()"
-        class="filter-btn"
-        [class.active]="selectedCategory === category"
-        (click)="filterByCategory(category)">
-        {{ getCategoryDisplayName(category) }}
-      </button>
+    <div class="mb-16" *ngIf="!isLoading && !error && portfolios.length > 0">
+      <div class="flex flex-wrap justify-center items-center gap-3 p-4 bg-white rounded" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        <button
+          *ngFor="let category of getUniqueCategories()"
+          class="px-6 py-2.5 rounded transition-all"
+          [style.background-color]="selectedCategory === category ? '#d2e4ff' : 'transparent'"
+          [style.color]="selectedCategory === category ? '#0067b1' : '#414751'"
+          [style.border]="selectedCategory === category ? '2px solid #0067b1' : '1px solid #c1c7d3'"
+          [style.font-family]="'Hanken Grotesk, sans-serif'"
+          [style.font-size]="'14px'"
+          [style.font-weight]="selectedCategory === category ? '600' : '400'"
+          [style.border-radius]="'0.25rem'"
+          (click)="filterByCategory(category)">
+          {{ getCategoryDisplayName(category) }}
+        </button>
+      </div>
     </div>
 
     <!-- Loading -->
-    <div *ngIf="isLoading" class="loading-state">
-      <div class="spinner"></div>
-      <p>{{ t('common.loading') }}</p>
+    <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-20">
+      <div class="w-12 h-12 border-4 rounded-full animate-spin mb-4" 
+           style="border-color: #0067b1; border-top-color: transparent;"></div>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; color: #414751;">
+        {{ t('common.loading') }}
+      </p>
     </div>
 
     <!-- Error -->
-    <div *ngIf="error && !isLoading" class="error-state">
-      <i class="bi bi-exclamation-triangle-fill"></i>
-      <p>{{ error }}</p>
-      <button class="btn-retry" (click)="retryLoad()">
+    <div *ngIf="error && !isLoading" 
+         class="rounded-lg p-12 text-center" 
+         style="background-color: #ffdad6; border-radius: 0.5rem;">
+      <i class="bi bi-exclamation-triangle-fill mb-4 block" style="font-size: 48px; color: #ba1a1a;"></i>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; color: #93000a; margin-bottom: 24px;">
+        {{ error }}
+      </p>
+      <button class="px-6 py-3 rounded transition-all hover:scale-105" 
+              style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; border-radius: 0.25rem;"
+              (click)="retryLoad()">
         <i class="bi bi-arrow-clockwise"></i> Réessayer
       </button>
     </div>
 
     <!-- Empty State -->
-    <div *ngIf="!isLoading && !error && portfolios.length === 0" class="empty-state">
-      <i class="bi bi-folder2-open"></i>
-      <h4>Aucun portfolio disponible</h4>
-      <p>Aucun portfolio n'a été ajouté pour le moment.</p>
+    <div *ngIf="!isLoading && !error && portfolios.length === 0" 
+         class="rounded-lg p-12 text-center" 
+         style="background-color: #ffffff; border: 1px solid #e2e2e5; border-radius: 0.5rem;">
+      <i class="bi bi-folder2-open mb-4 block" style="font-size: 64px; color: #c1c7d3;"></i>
+      <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+        Aucun portfolio disponible
+      </h4>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; color: #414751;">
+        Aucun portfolio n'a été ajouté pour le moment.
+      </p>
     </div>
 
     <!-- Portfolio Grid -->
-    <div class="row gy-4" *ngIf="!isLoading && !error && paginatedPortfolios.length > 0">
-      <div *ngFor="let portfolio of paginatedPortfolios" class="col-lg-4 col-md-6">
-        <div class="portfolio-card">
-          <div class="portfolio-card-img">
-            <img [src]="getImageUrl(portfolio.logoUrl)"
-                 [alt]="portfolio.companyName"
-                 (error)="onImageError($event)"
-                 loading="lazy">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" 
+         *ngIf="!isLoading && !error && paginatedPortfolios.length > 0">
+      <div *ngFor="let portfolio of paginatedPortfolios" 
+           class="group rounded-lg overflow-hidden bg-white transition-all hover:shadow-lg hover:-translate-y-1" 
+           style="border: 1px solid #e2e2e5; border-radius: 0.5rem; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04);">
+        
+        <!-- Card Image/Header -->
+        <div class="relative h-56 overflow-hidden" style="background-color: #f2f7fa;">
+          <img *ngIf="portfolio.logoUrl" 
+               [src]="getImageUrl(portfolio.logoUrl)" 
+               [alt]="portfolio.companyName" 
+               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+               (error)="onImageError($event)" 
+               loading="lazy">
+          <div *ngIf="!portfolio.logoUrl" 
+               class="w-full h-full flex items-center justify-center"
+               style="background: linear-gradient(135deg, #f2f7fa 0%, #e2e2e5 100%);">
+            <i class="bi bi-building-fill" style="font-size: 64px; color: #0067b1; opacity: 0.3;"></i>
           </div>
-          <div class="portfolio-card-body">
-            <h4 class="portfolio-card-title">{{ portfolio.companyName }}</h4>
-            <p class="portfolio-card-desc">{{ portfolio.description }}</p>
-            <div class="portfolio-card-meta">
-              <span class="meta-tag" *ngIf="portfolio.trainingTitle">
-                <i class="bi bi-tag"></i> {{ portfolio.trainingTitle }}
-              </span>
-              <span class="meta-tag date" *ngIf="portfolio.trainingDate">
-                <i class="bi bi-calendar3"></i> {{ formatDate(portfolio.trainingDate) }}
-              </span>
-            </div>
+          
+          <!-- Category Badge Overlay -->
+          <div *ngIf="portfolio.trainingTitle" 
+               class="absolute top-4 left-4 px-3 py-1.5 rounded" 
+               style="background-color: rgba(0, 103, 177, 0.95); backdrop-filter: blur(10px); border-radius: 0.25rem;">
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #ffffff; text-transform: uppercase;">
+              {{ portfolio.trainingTitle | slice:0:20 }}
+            </span>
           </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="p-8">
+          <!-- Date -->
+          <div class="flex items-center gap-2 mb-3" *ngIf="portfolio.trainingDate">
+            <i class="bi bi-calendar3" style="color: #414751; font-size: 14px;"></i>
+            <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 500; color: #414751;">
+              {{ formatDate(portfolio.trainingDate) }}
+            </span>
+          </div>
+          
+          <!-- Company Name -->
+          <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; line-height: 28px; color: #1a1c1e; margin-bottom: 12px;">
+            {{ portfolio.companyName }}
+          </h3>
+          
+          <!-- Description -->
+          <p class="line-clamp-3" 
+             style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751; margin-bottom: 24px;">
+            {{ portfolio.description }}
+          </p>
+
+          <!-- CTA Button -->
+          <button class="w-full px-6 py-3 rounded transition-all hover:scale-105 flex items-center justify-center gap-2" 
+                  style="background-color: #0067b1; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; border-radius: 0.25rem;">
+            <span>View Project Details</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
         </div>
       </div>
     </div>
 
     <!-- No Results -->
-    <div *ngIf="portfolios.length > 0 && filteredPortfolios.length === 0" class="empty-state">
-      <i class="bi bi-search"></i>
-      <h4>{{ t('portfolio.no-results') }} "{{ selectedCategory }}"</h4>
-      <p>{{ t('portfolio.try-different') }}</p>
-      <button class="btn-retry" (click)="filterByCategory('all')">
+    <div *ngIf="portfolios.length > 0 && filteredPortfolios.length === 0" 
+         class="rounded-lg p-12 text-center" 
+         style="background-color: #ffffff; border: 1px solid #e2e2e5; border-radius: 0.5rem;">
+      <i class="bi bi-search mb-4 block" style="font-size: 64px; color: #c1c7d3;"></i>
+      <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+        {{ t('portfolio.no-results') }} "{{ selectedCategory }}"
+      </h4>
+      <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; color: #414751; margin-bottom: 24px;">
+        {{ t('portfolio.try-different') }}
+      </p>
+      <button class="px-6 py-3 rounded transition-all hover:scale-105" 
+              style="background-color: #e30613; color: #ffffff; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; border-radius: 0.25rem;"
+              (click)="filterByCategory('all')">
         <i class="bi bi-arrow-counterclockwise"></i> Voir tous
       </button>
     </div>
 
     <!-- Pagination -->
-    <app-pagination
-      [currentPage]="currentPage"
-      [totalItems]="totalItems"
-      [itemsPerPage]="itemsPerPage"
-      (pageChange)="onPageChange($event)"
-      *ngIf="filteredPortfolios.length > itemsPerPage">
-    </app-pagination>
+    <div class="mt-12 flex justify-center">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        (pageChange)="onPageChange($event)"
+        *ngIf="filteredPortfolios.length > itemsPerPage">
+      </app-pagination>
+    </div>
   </div>
 </section>

@@ -11,8 +11,10 @@ import { TranslationService } from '../../services/translation.service';
   styleUrl: './about.scss'
 })
 export class About {
-  aboutImage = `/assets/img/about/about-us.jpg?v=${Date.now()}`;
-  private readonly fallbackImage = '/assets/img/about.jpg';
+  // Use an existing local asset as a safe default. If you later add
+  // `src/assets/img/about/about-us.jpg`, you can switch `aboutImage` back.
+  aboutImage = '/assets/img/logo-placeholder.png';
+  private readonly fallbackImage = '/assets/img/logo-placeholder.png';
 
   constructor(public translationService: TranslationService) {}
 

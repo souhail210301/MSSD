@@ -1,135 +1,218 @@
-<!-- Blog Detail Page -->
-<div class="page-title">
-  <div class="heading">
-    <div class="container">
-      <div class="row d-flex justify-content-center text-center">
-        <div class="col-lg-8">
-          <h1 *ngIf="!loading && blog">{{ blog.title }}</h1>
-          <h1 *ngIf="loading">Chargement...</h1>
-          <h1 *ngIf="error">Article non trouvé</h1>
-          <p class="mb-0" *ngIf="!loading && blog">Publié le {{ formatDate(blog.publishDate!) }}</p>
+﻿<main class="min-h-screen bg-[#f9f9fc]" style="padding-top: 80px;">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex items-center justify-center min-h-screen">
+    <div class="w-16 h-16 border-4 rounded-full animate-spin" style="border-color: #e2e2e5; border-top-color: #0067b1;"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="py-20 px-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg p-8 text-center" style="border: 1px solid #e2e2e5; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04); border-radius: 0.5rem;">
+      <i class="bi bi-journal-x text-6xl mb-4 block" style="color: #c1c7d3;"></i>
+      <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 24px; font-weight: 600; color: #1a1c1e; margin-bottom: 16px;">
+        {{ error }}
+      </h2>
+      <button (click)="goBack()" 
+              class="inline-flex items-center px-6 py-3 rounded font-semibold transition-all hover:scale-105" 
+              style="background-color: #0067b1; color: #ffffff; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 600;">
+        <i class="bi bi-arrow-left mr-2"></i>Back to Articles
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <article *ngIf="!loading && !error && blog" class="py-16 px-6">
+    <div class="container mx-auto" style="max-width: 1280px;">
+      <div class="grid lg:grid-cols-3 gap-12">
+        
+        <!-- Left Column: Article Content -->
+        <div class="lg:col-span-2">
+          
+          <!-- Breadcrumb -->
+          <nav class="mb-8">
+            <ul class="flex items-center gap-2 text-sm" style="font-family: 'Hanken Grotesk', sans-serif; color: #414751;">
+              <li><a routerLink="/" class="hover:text-primary transition-colors" style="color: #414751;">Home</a></li>
+              <li style="color: #c1c7d3;">/</li>
+              <li><a routerLink="/blog" class="hover:text-primary transition-colors" style="color: #414751;">Journal</a></li>
+              <li style="color: #c1c7d3;">/</li>
+              <li style="color: #0067b1; font-weight: 600;">Article</li>
+            </ul>
+          </nav>
+
+          <!-- Header Section -->
+          <div class="mb-8">
+            <!-- Category Badge -->
+            <div class="mb-4 flex items-center gap-3">
+              <span class="px-3 py-1.5 rounded text-xs font-semibold" style="background-color: #d2e4ff; color: #004f89; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif;">
+                {{ blog.youtubeUrl ? 'FEATURED INSIGHT' : 'PERFORMANCE' }}
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h1 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 48px; font-weight: 700; line-height: 56px; letter-spacing: -0.02em; color: #1a1c1e; margin-bottom: 24px;">
+              {{ blog.title }}
+            </h1>
+
+            <!-- Subtitle -->
+            <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 400; line-height: 28px; color: #414751; margin-bottom: 32px;">
+              {{ blog.description }}
+            </p>
+
+            <!-- Author & Share -->
+            <div class="flex items-center justify-between py-6" style="border-top: 1px solid #e2e2e5; border-bottom: 1px solid #e2e2e5;">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #d2e4ff;">
+                  <i class="bi bi-person-fill" style="color: #0067b1;"></i>
+                </div>
+                <div>
+                  <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #1a1c1e;">
+                    Editorial Team
+                  </div>
+                  <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: #414751;">
+                    <span>Published {{ formatDate(blog.publishDate!) }}</span>
+                    <span class="mx-2">•</span>
+                    <span>8 min read</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <a [href]="'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeUrl(getCurrentUrl())" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="w-10 h-10 rounded flex items-center justify-center hover:bg-gray-100 transition-all" 
+                   style="background-color: #f3f3f6; border-radius: 0.25rem;"
+                   title="Share on LinkedIn">
+                  <i class="bi bi-linkedin" style="color: #1a1c1e;"></i>
+                </a>
+                <a [href]="'https://www.facebook.com/sharer/sharer.php?u=' + encodeUrl(getCurrentUrl())" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="w-10 h-10 rounded flex items-center justify-center hover:bg-gray-100 transition-all" 
+                   style="background-color: #f3f3f6; border-radius: 0.25rem;"
+                   title="Share on Facebook">
+                  <i class="bi bi-facebook" style="color: #1a1c1e;"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article Body -->
+          <div class="prose max-w-none">
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #414751;">
+              <p>{{ blog.description }}</p>
+            </div>
+
+            <!-- Blockquote -->
+            <div class="my-8 pl-8 py-6 rounded-lg" style="background-color: #f2f7fa; border-left: 4px solid #0067b1; border-radius: 0.5rem;">
+              <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-style: italic; font-weight: 600; color: #004f89;">
+                "How top-tier leadership structures are redefining performance metrics in the modern enterprise."
+              </p>
+            </div>
+          </div>
+
+          <!-- Tags Footer -->
+          <div class="mt-12 pt-8" style="border-top: 1px solid #e2e2e5;">
+            <div class="flex items-center gap-3 flex-wrap">
+              <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #414751;">
+                Tags:
+              </span>
+              <span class="px-3 py-1.5 rounded text-xs font-medium" style="background-color: #f3f3f6; color: #1a1c1e; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif;">
+                Leadership
+              </span>
+              <span class="px-3 py-1.5 rounded text-xs font-medium" style="background-color: #f3f3f6; color: #1a1c1e; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif;">
+                Strategy
+              </span>
+              <span *ngIf="blog.youtubeUrl" class="px-3 py-1.5 rounded text-xs font-medium" style="background-color: #f3f3f6; color: #1a1c1e; border-radius: 0.25rem; font-family: 'Hanken Grotesk', sans-serif;">
+                <i class="bi bi-youtube mr-1"></i>Video
+              </span>
+            </div>
+          </div>
+
+          <!-- Author Bio -->
+          <div class="mt-12 p-8 rounded-lg" style="background-color: #ffffff; border: 1px solid #e2e2e5; box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04); border-radius: 0.5rem;">
+            <div class="flex gap-6">
+              <div class="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center" style="background-color: #d2e4ff;">
+                <i class="bi bi-people-fill text-2xl" style="color: #0067b1;"></i>
+              </div>
+              <div>
+                <h4 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #1a1c1e; margin-bottom: 8px;">
+                  Editorial Team
+                </h4>
+                <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+                  The MSSD editorial team specializes in deep dives into corporate training methodologies, data-driven strategies for institutional excellence.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sidebar Media -->
+        <div class="lg:col-span-1">
+          <!-- Sticky Container -->
+          <div class="sticky top-24">
+            
+            <!-- Featured Media Card -->
+            <div class="rounded-lg overflow-hidden mb-8" style="box-shadow: 0px 2px 8px rgba(26, 28, 30, 0.04); border: 1px solid #e2e2e5; border-radius: 0.5rem;">
+              <!-- Image -->
+              <div class="relative h-96" *ngIf="blog.imageUrl && !blog.youtubeUrl">
+                <img [src]="getImageUrl(blog)" [alt]="blog.title" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 right-0 p-6" style="background: linear-gradient(to top, rgba(0, 79, 137, 0.9), transparent);">
+                  <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; margin-bottom: 8px;">
+                    Featured Visual
+                  </div>
+                  <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #ffffff;">
+                    {{ blog.title.substring(0, 40) }}...
+                  </h3>
+                </div>
+              </div>
+
+              <!-- Video Placeholder -->
+              <div class="relative h-96 flex items-center justify-center" 
+                   *ngIf="blog.youtubeUrl"
+                   (click)="openYouTubeVideo(blog.youtubeUrl!)"
+                   role="button"
+                   tabindex="0"
+                   style="background: linear-gradient(135deg, #0067b1 0%, #004f89 100%); cursor: pointer;">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center" style="background-color: rgba(255, 255, 255, 0.9); box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);">
+                  <i class="bi bi-play-fill text-2xl" style="color: #0067b1; margin-left: 4px;"></i>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-6" style="background: linear-gradient(to top, rgba(0, 79, 137, 0.9), transparent);">
+                  <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; margin-bottom: 8px;">
+                    Featured Webcast
+                  </div>
+                  <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #ffffff;">
+                    Watch Full Session
+                  </h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Related Data Widget -->
+            <div class="rounded-lg p-6" style="background-color: #f2f7fa; border-radius: 0.5rem;">
+              <div class="flex items-center gap-2 mb-4">
+                <i class="bi bi-graph-up text-xl" style="color: #0067b1;"></i>
+                <h3 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: #1a1c1e; text-transform: uppercase;">
+                  Key Metric
+                </h3>
+              </div>
+              
+              <div class="flex items-baseline gap-2 my-6">
+                <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 40px; font-weight: 700; color: #0067b1;">
+                  40%
+                </span>
+                <span style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #414751;">
+                  improvement
+                </span>
+              </div>
+
+              <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #414751;">
+                Organizations leveraging precision analytics report significantly higher long-term competency retention rates.
+              </p>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <nav class="breadcrumbs">
-    <div class="container">
-      <ol>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/blog">Blog</a></li>
-        <li class="current" *ngIf="blog">{{ blog.title }}</li>
-      </ol>
-    </div>
-  </nav>
-</div><!-- End Page Title -->
-
-<div class="container">
-  <section class="blog-detail section">
-
-    <!-- Loading Spinner -->
-    <div *ngIf="loading" class="text-center py-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Chargement...</span>
-      </div>
-      <p class="mt-3 text-muted">Chargement de l'article...</p>
-    </div>
-
-    <!-- Error Message -->
-    <div *ngIf="error" class="alert alert-danger" role="alert">
-      <i class="bi bi-exclamation-triangle me-2"></i>
-      {{ error }}
-      <button class="btn btn-outline-primary mt-3" (click)="goBack()">
-        <i class="bi bi-arrow-left me-2"></i>Retour au Blog
-      </button>
-    </div>
-
-    <!-- Blog Detail Content -->
-    <div *ngIf="!loading && !error && blog" class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <article class="blog-detail-card">
-          
-          <!-- Blog Header -->
-          <header class="blog-header mb-4">
-            <div class="blog-meta mb-3">
-              <span class="meta-item">
-                <i class="bi bi-calendar me-1"></i>
-                {{ formatDate(blog.publishDate!) }}
-              </span>
-              <span class="meta-item" *ngIf="blog.youtubeUrl">
-                <i class="bi bi-youtube text-danger me-1"></i>
-                Vidéo
-              </span>
-              <span class="meta-item" *ngIf="blog.imageUrl && !blog.youtubeUrl">
-                <i class="bi bi-image text-info me-1"></i>
-                Article avec image
-              </span>
-            </div>
-            <h1 class="blog-title">{{ blog.title }}</h1>
-          </header>
-
-          <!-- Featured Image (only for non-video blogs) -->
-          <div class="featured-image mb-4" *ngIf="blog.imageUrl && !blog.youtubeUrl">
-            <img 
-              [src]="getImageUrl(blog)" 
-              [alt]="blog.title" 
-              class="img-fluid rounded">
-          </div>
-
-          <!-- YouTube Video Section -->
-          <div class="video-section mb-4" *ngIf="blog.youtubeUrl">
-            <div class="video-card">
-              <div class="video-header">
-                <h3><i class="bi bi-youtube text-danger me-2"></i>Regarder la Vidéo</h3>
-                <p class="text-muted">Cliquez sur le bouton ci-dessous pour voir la vidéo sur YouTube</p>
-              </div>
-              <div class="video-actions">
-                <button class="btn btn-danger btn-lg" (click)="openYouTubeVideo(blog.youtubeUrl!)">
-                  <i class="bi bi-play-circle me-2"></i>
-                  Voir sur YouTube
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Blog Content -->
-          <div class="blog-content">
-            <div class="content-text">
-              <p class="lead">{{ blog.description }}</p>
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="blog-actions mt-4 pt-4 border-top">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-              <button class="btn btn-outline-primary" (click)="goBack()">
-                <i class="bi bi-arrow-left me-2"></i>
-                Retour au Blog
-              </button>
-              
-              <div class="share-buttons">
-                <span class="me-3 text-muted">Partager :</span>
-                <a [href]="'https://www.facebook.com/sharer/sharer.php?u=' + encodeUrl(getCurrentUrl())" 
-                   target="_blank" 
-                   class="btn btn-outline-primary btn-sm me-2">
-                  <i class="bi bi-facebook"></i>
-                </a>
-                <a [href]="'https://twitter.com/intent/tweet?url=' + encodeUrl(getCurrentUrl()) + '&text=' + encodeText(blog.title)" 
-                   target="_blank" 
-                   class="btn btn-outline-info btn-sm me-2">
-                  <i class="bi bi-twitter"></i>
-                </a>
-                <a [href]="'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeUrl(getCurrentUrl())" 
-                   target="_blank" 
-                   class="btn btn-outline-primary btn-sm">
-                  <i class="bi bi-linkedin"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </article>
-      </div>
-    </div>
-
-  </section>
-</div>
+  </article>
+</main>

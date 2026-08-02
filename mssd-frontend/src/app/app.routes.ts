@@ -3,6 +3,7 @@ import { AppFlexstartLayout } from './app.flexstart-layout';
 import { Home } from './pages/home/home';
 import { About } from './pages/about/about';
 import { Services } from './pages/services/services';
+import { Formations } from './pages/formations/formations';
 import { PortfolioComponent } from './pages/portfolio/portfolio';
 import { Blog } from './pages/blog/blog';
 import { Contact } from './pages/contact/contact';
@@ -11,6 +12,7 @@ import { StarterPage } from './pages/starter-page/starter-page';
 import { Calendar } from './pages/calendar/calendar';
 import { Annexes } from './pages/annexes/annexes';
 import { AnnexesRequest } from './pages/annexes-request/annexes-request';
+import { CoachingComponent } from './pages/coaching/coaching';
 
 export const routes: Routes = [
   {
@@ -21,7 +23,9 @@ export const routes: Routes = [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: Home },
       { path: 'about', component: About },
+      { path: 'formations', component: Formations },
       { path: 'services', component: Services },
+      { path: 'coaching', component: CoachingComponent },
       { path: 'annexes', component: Annexes },
       { path: 'annexes-theme', component: Annexes },
       { path: 'annexes/request', component: AnnexesRequest },

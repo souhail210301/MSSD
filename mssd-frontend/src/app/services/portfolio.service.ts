@@ -23,7 +23,7 @@ export class PortfolioService {
 
   // Get all portfolios (for admin view)
   getAllPortfolios(): Observable<Portfolio[]> {
-    return this.http.get<Portfolio[]>(this.apiUrl).pipe(
+    return this.http.get<Portfolio[]>(`${this.apiUrl}`).pipe(
       tap(portfolios => console.log('All portfolio items fetched:', portfolios)),
       catchError(this.handleError)
     );

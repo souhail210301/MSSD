@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -34,6 +35,10 @@ public class Theme {
     @Column(nullable = false)
     private boolean active = true;
     
+    @Column(nullable = false)
+    private boolean published = true;
+    
     @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Formation> formations = new ArrayList<>();
 }

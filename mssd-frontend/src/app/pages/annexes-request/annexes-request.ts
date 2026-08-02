@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, KeyValuePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AnnexRequestService } from '../../services/annex-request.service';
 import { ThemeService } from '../../services/theme.service';
-import { FormationSummary, ModalityOption } from '../../model/annexes.model';
+import { FormationSummary } from '../../model/annexes.model';
 
 @Component({
   selector: 'app-annexes-request',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, KeyValuePipe],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './annexes-request.html',
   styleUrls: ['./annexes-request.scss']
 })
 export class AnnexesRequest implements OnInit {
   requestForm: FormGroup;
   formations: FormationSummary[] = [];
-  modalityOptions: ModalityOption[] = [];
   isSubmitting = false;
   error = '';
   success = false;
@@ -33,7 +32,6 @@ export class AnnexesRequest implements OnInit {
 
   ngOnInit(): void {
     this.loadFormations();
-    this.modalityOptions = this.annexRequestService.getModalityOptions();
     this.handleQueryParams();
   }
 
@@ -41,19 +39,19 @@ export class AnnexesRequest implements OnInit {
     return this.fb.group({
       // Company Information
       companyName: ['', [Validators.required, Validators.minLength(2)]],
+      contactName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
 
       // Training Selection
-      isCustom: [false, Validators.required],
-      formationId: [null],
-      customDescription: [''],
+      modality: ['', Validators.required], // Changed from trainingType to modality
+      theme: ['', Validators.required],
+      numParticipants: [1, [Validators.required, Validators.min(1), Validators.max(500)]],
+      preferredDate: ['', Validators.required], // Added required field
 
       // Common Fields
-      numParticipants: [1, [Validators.required, Validators.min(1), Validators.max(500)]],
-      modality: ['', Validators.required],
-      preferredDate: ['', Validators.required],
-      notes: ['']
+      notes: [''],
+      agreeToTerms: [false]
     });
   }
 
@@ -80,30 +78,16 @@ export class AnnexesRequest implements OnInit {
       );
       
       if (themeFormations.length > 0) {
-        // Auto-select first formation from the theme
+        // Auto-select the theme
         this.requestForm.patchValue({
-          isCustom: false,
-          formationId: themeFormations[0].id
+          theme: themeFormations[0].id
         });
       }
     }
   }
 
   onTrainingTypeChange(): void {
-    const isCustom = this.requestForm.get('isCustom')?.value;
-    
-    if (isCustom) {
-      // Custom training selected
-      this.requestForm.get('formationId')?.clearValidators();
-      this.requestForm.get('customDescription')?.setValidators([Validators.required, Validators.minLength(10)]);
-    } else {
-      // Existing training selected
-      this.requestForm.get('formationId')?.setValidators([Validators.required]);
-      this.requestForm.get('customDescription')?.clearValidators();
-    }
-    
-    this.requestForm.get('formationId')?.updateValueAndValidity();
-    this.requestForm.get('customDescription')?.updateValueAndValidity();
+    // This method is no longer needed with the new design
   }
 
   onSubmit(): void {
@@ -113,14 +97,20 @@ export class AnnexesRequest implements OnInit {
 
       const formData = this.requestForm.value;
       
-      // Clean up data based on training type
-      if (formData.isCustom) {
-        formData.formationId = null;
-      } else {
-        formData.customDescription = null;
-      }
+      // Prepare the request payload with all required fields
+      const requestPayload = {
+        companyName: formData.companyName,
+        email: formData.email,
+        phone: formData.phone || '',
+        formationId: formData.theme ? Number(formData.theme) : undefined,
+        isCustom: false, // Always false for standard formations
+        numParticipants: formData.numParticipants,
+        modality: formData.modality, // IN_PERSON, REMOTE, or HYBRID
+        preferredDate: formData.preferredDate,
+        notes: formData.notes || ''
+      };
 
-      this.annexRequestService.createRequest(formData).subscribe({
+      this.annexRequestService.createRequest(requestPayload).subscribe({
         next: (response) => {
           this.success = true;
           this.isSubmitting = false;

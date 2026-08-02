@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
+import { TranslationService } from '../../services/translation.service';
 import { Theme } from '../../model/annexes.model';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
@@ -20,10 +21,25 @@ export class Annexes implements OnInit {
 
   // Pagination
   currentPage = 1;
-  itemsPerPage = 9; // 3x3 grid
+  itemsPerPage = 8; // 4x2 grid for better layout
   totalItems = 0;
 
-  constructor(private themeService: ThemeService) {}
+  // Stats
+  totalFormations = 0;
+  totalLearners = 0;
+  averageRating = 4.8;
+
+  // Filter
+  selectedCategory = 'all';
+
+  constructor(
+    private themeService: ThemeService,
+    public translationService: TranslationService
+  ) {}
+
+  t(key: string): string {
+    return this.translationService.translate(key);
+  }
 
   ngOnInit(): void {
     this.loadThemesWithFormations();
@@ -31,13 +47,17 @@ export class Annexes implements OnInit {
 
   loadThemesWithFormations(): void {
     this.loading = true;
-    console.log('🔍 Loading themes with formations...');
-    this.themeService.getThemesWithFormations().subscribe({
+    console.log('🔍 Loading admin themes with formations...');
+    this.themeService.getAdminThemesWithFormations().subscribe({
       next: (themes) => {
         console.log('✅ Themes loaded:', themes);
         console.log('📊 Number of themes:', themes.length);
         this.themes = themes;
         this.totalItems = themes.length;
+        
+        // Calculate stats
+        this.calculateStats();
+        
         this.updatePaginatedThemes();
         this.loading = false;
       },
@@ -49,6 +69,23 @@ export class Annexes implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  calculateStats(): void {
+    // Count total formations
+    this.totalFormations = this.themes.reduce((sum, theme) => {
+      return sum + (theme.formations?.length || 0);
+    }, 0);
+    
+    // You can add more stats calculations here
+    // For now, we'll use a placeholder for learners
+    this.totalLearners = 5000;
+  }
+
+  selectCategory(category: string): void {
+    this.selectedCategory = category;
+    this.currentPage = 1; // Reset to first page
+    this.updatePaginatedThemes();
   }
 
   getLevelLabel(level: string): string {
@@ -91,39 +128,23 @@ export class Annexes implements OnInit {
     this.currentPage = page;
     this.updatePaginatedThemes();
     // Scroll to top of annexes section
-    const annexesSection = document.getElementById('hero-annexes');
+    const annexesSection = document.querySelector('section');
     if (annexesSection) {
       annexesSection.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
-  debugThemes(): void {
-    console.log('🐛 Starting debug...');
-    this.themeService.getAllThemes().subscribe({
-      next: (themes) => {
-        console.log('🎯 All themes (simple call):', themes);
-        alert(`Debug: Trouvé ${themes.length} thèmes. Voir la console pour plus de détails.`);
-      },
-      error: (err) => {
-        console.error('🐛 Debug error:', err);
-        alert('Erreur de debug - voir la console');
-      }
-    });
-  }
-
-  fixThemes(): void {
-    console.log('🔧 Starting theme fix...');
-    this.themeService.fixThemes().subscribe({
-      next: (result) => {
-        console.log('✅ Fix result:', result);
-        alert(`Correction terminée: ${result.message || 'Success'}`);
-        // Reload themes after fix
-        this.loadThemesWithFormations();
-      },
-      error: (err) => {
-        console.error('❌ Fix error:', err);
-        alert('Erreur lors de la correction - voir la console');
-      }
-    });
+  getIconUrl(iconUrl: string | undefined): string {
+    if (!iconUrl) return '';
+    // If it's already a full URL (http/https), return as-is
+    if (iconUrl.startsWith('http://') || iconUrl.startsWith('https://')) {
+      return iconUrl;
+    }
+    // If it already starts with /api/files/, return as-is
+    if (iconUrl.startsWith('/api/files/')) {
+      return iconUrl;
+    }
+    // Otherwise, prepend the path
+    return `/api/files/${iconUrl}`;
   }
 }

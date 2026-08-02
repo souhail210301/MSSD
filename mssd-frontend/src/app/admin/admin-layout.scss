@@ -1,34 +1,60 @@
 @use 'sass:color';
 
-// ── Admin Design System ──
-$admin-primary: #002b6c;
-$admin-primary-light: color.adjust(#002b6c, $lightness: 12%);
-$admin-secondary: #e60000;
-$admin-sidebar-bg: #0a1929;
-$admin-sidebar-hover: rgba(255, 255, 255, 0.08);
-$admin-sidebar-active: rgba(255, 255, 255, 0.12);
-$admin-topbar-bg: #ffffff;
-$admin-body-bg: #f0f2f5;
-$admin-white: #ffffff;
-$admin-text: #1e293b;
-$admin-text-muted: #64748b;
-$admin-border: #e2e8f0;
-$admin-radius: 12px;
-$admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-$admin-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
-$sidebar-width: 250px;
+// ═══════════════════════════════════════════════════════════════════════════
+// Admin Layout — "The Precision Architect"
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// KEY RULES FROM DESIGN.MD:
+// ✅ "No-Line" Rule: No 1px solid borders for sectioning
+// ✅ Tonal Layering: Background color shifts define boundaries
+// ✅ Glassmorphism: Semi-transparent surfaces with backdrop-blur
+// ✅ Ambient Shadows: blur 32–64px, opacity 4–8%
+// ✅ Typography: Manrope for headings, Inter for body
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Design Tokens ──
+$primary:            #00183d;
+$primary-container:  #002c64;
+$on-primary:         #ffffff;
+$on-primary-ctr:     #3b82f6;
+$tertiary:           #f97316;
+
+$surface:            #faf9fe;
+$surface-low:        #f4f3f8;
+$surface-lowest:     #ffffff;
+$surface-high:       #ebeaf2;
+$surface-highest:    #e2e1e9;
+
+$on-surface:         #1a1b1f;
+$on-surface-variant: #44474f;
+$outline-variant:    #c4c6d0;
+
+$sidebar-width:      260px;
+$radius-lg:          0.5rem;
+$radius-xl:          0.75rem;
+
+$shadow-ambient:     0 4px 32px 0 rgba(26, 27, 31, 0.04);
+$shadow-ambient-md:  0 8px 48px 0 rgba(26, 27, 31, 0.05);
+$shadow-float:       0 8px 32px -4px rgba(26, 27, 31, 0.12);
+
+$transition:         all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
 // ── Layout Shell ──
 .admin-shell {
   display: flex;
   min-height: 100vh;
-  background: $admin-body-bg;
+  background: $surface;
 }
 
-// ── Sidebar ──
+// ═══════════════════════════════════════════════════════════════════════════
+// SIDEBAR — Glassmorphism on surface-high
+// No borders. Uses tonal layering + backdrop-blur for definition.
+// ═══════════════════════════════════════════════════════════════════════════
 .admin-sidebar {
   width: $sidebar-width;
-  background: $admin-sidebar-bg;
+  background: rgba($primary, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: column;
@@ -44,46 +70,52 @@ $sidebar-width: 250px;
   &::-webkit-scrollbar {
     width: 4px;
   }
-
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 2px;
   }
 }
 
+// ── Sidebar Brand ──
+// No border-bottom → uses padding/spacing for separation
 .sidebar-brand {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1.25rem 1.25rem;
+  padding: 1.25rem;
   text-decoration: none;
   color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   flex-shrink: 0;
+  // "No-Line" rule: use tonal bg shift instead of border-bottom
+  background: rgba(255, 255, 255, 0.04);
 
   img {
-    height: 36px;
+    height: 38px;
     width: auto;
+    filter: brightness(0) invert(1);
   }
 
   .brand-text {
-    font-weight: 700;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
     font-size: 1.1rem;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 }
 
+// ── Sidebar Sections ──
 .sidebar-section {
   padding: 1.25rem 0 0.25rem;
 }
 
 .sidebar-heading {
   padding: 0 1.25rem 0.5rem;
-  font-size: 0.68rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .sidebar-nav {
@@ -92,72 +124,81 @@ $sidebar-width: 250px;
   padding: 0;
 }
 
+// ── Sidebar Links ──
+// Removed border-left, using bg color shift for active state
 .sidebar-link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.6rem 1.25rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  font-size: 0.88rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
   font-weight: 500;
-  transition: background 0.15s, color 0.15s;
-  border-left: 3px solid transparent;
-  margin: 1px 0;
+  transition: background $transition, color $transition;
+  margin: 1px 0.5rem;
+  border-radius: $radius-lg;
 
   i {
     width: 20px;
     text-align: center;
-    font-size: 0.92rem;
-    opacity: 0.75;
+    font-size: 0.9rem;
+    opacity: 0.7;
   }
 
   &:hover {
-    background: $admin-sidebar-hover;
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
-
     i { opacity: 1; }
   }
 
   &.active {
-    background: $admin-sidebar-active;
+    // Signature gradient feel for active state
+    background: linear-gradient(135deg, rgba($on-primary-ctr, 0.12), rgba($on-primary-ctr, 0.06));
     color: #fff;
-    border-left-color: $admin-secondary;
-
-    i { opacity: 1; }
+    font-weight: 600;
+    i { opacity: 1; color: $on-primary-ctr; }
   }
 }
 
+// ── "Voir le site" Link ──
 .sidebar-link-front {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.6rem 1.25rem;
+  padding: 0.6rem 1rem;
   margin: 0.5rem 0.75rem;
-  border-radius: 8px;
-  background: rgba($admin-secondary, 0.15);
-  color: #ff6b6b;
+  border-radius: $radius-lg;
+  background: rgba($on-primary-ctr, 0.12);
+  color: rgba($on-primary-ctr, 1);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
   font-weight: 600;
   transition: background 0.2s;
 
   &:hover {
-    background: rgba($admin-secondary, 0.25);
+    background: rgba($on-primary-ctr, 0.2);
     color: #fff;
   }
 }
 
+// ── Sidebar Footer ──
+// No border-top → tonal bg shift
 .sidebar-footer {
   margin-top: auto;
   padding: 1rem 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.25);
   flex-shrink: 0;
 }
 
-// ── Main Content Area ──
+// ═══════════════════════════════════════════════════════════════════════════
+// MAIN CONTENT AREA
+// ═══════════════════════════════════════════════════════════════════════════
 .admin-main {
   flex: 1;
   margin-left: $sidebar-width;
@@ -168,18 +209,19 @@ $sidebar-width: 250px;
 }
 
 // ── Top Bar ──
+// No border-bottom → uses tonal shift (surface-lowest against surface)
 .admin-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 1.5rem;
   height: 60px;
-  background: $admin-topbar-bg;
-  border-bottom: 1px solid $admin-border;
+  background: $surface-lowest;
   position: sticky;
   top: 0;
   z-index: 1030;
   flex-shrink: 0;
+  box-shadow: 0 1px 8px 0 rgba(26, 27, 31, 0.03);
 }
 
 .topbar-left {
@@ -193,14 +235,15 @@ $sidebar-width: 250px;
   background: none;
   border: none;
   font-size: 1.25rem;
-  color: $admin-text;
+  color: $on-surface;
   padding: 0.25rem;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: $radius-lg;
 
-  &:hover { background: $admin-body-bg; }
+  &:hover { background: $surface-high; }
 }
 
+// ── Search ── (uses surface-highest bg, bottom-only ghost border)
 .topbar-search {
   position: relative;
   width: 280px;
@@ -210,24 +253,31 @@ $sidebar-width: 250px;
     left: 0.85rem;
     top: 50%;
     transform: translateY(-50%);
-    color: $admin-text-muted;
+    color: $on-surface-variant;
     font-size: 0.85rem;
   }
 
   input {
     width: 100%;
     padding: 0.5rem 0.85rem 0.5rem 2.25rem;
-    border: 1px solid $admin-border;
-    border-radius: 8px;
+    border: none;
+    border-radius: $radius-lg $radius-lg 0 0;
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.85rem;
-    background: $admin-body-bg;
-    transition: border-color 0.2s, background 0.2s;
+    background: $surface-highest;
+    color: $on-surface;
+    // Ghost border bottom only
+    box-shadow: inset 0 -1px 0 0 rgba($outline-variant, 0.15);
+    transition: background 0.2s, box-shadow 0.2s;
+
+    &::placeholder {
+      color: $on-surface-variant;
+    }
 
     &:focus {
       outline: none;
-      border-color: $admin-primary;
-      background: $admin-white;
-      box-shadow: 0 0 0 3px rgba($admin-primary, 0.08);
+      background: $surface-high;
+      box-shadow: inset 0 -2px 0 0 $on-primary-ctr;
     }
   }
 }
@@ -238,33 +288,37 @@ $sidebar-width: 250px;
   gap: 0.5rem;
 }
 
+// ── User Button ──
 .topbar-user {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
-  border-radius: 8px;
+  border-radius: $radius-lg;
   cursor: pointer;
   transition: background 0.15s;
   position: relative;
   background: none;
   border: none;
-  font-size: 0.88rem;
-  color: $admin-text;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: $on-surface;
 
-  &:hover { background: $admin-body-bg; }
+  &:hover { background: $surface-high; }
 
   .user-avatar {
     width: 32px;
     height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, $admin-primary, $admin-primary-light);
+    border-radius: $radius-lg;
+    // Signature gradient for avatar
+    background: linear-gradient(135deg, $primary, $primary-container);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Manrope', system-ui, sans-serif;
     font-weight: 700;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
 
   .user-name {
@@ -276,24 +330,27 @@ $sidebar-width: 250px;
   }
 }
 
+// ── User Dropdown ──
 .user-dropdown {
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  background: $admin-white;
-  border: 1px solid $admin-border;
-  border-radius: $admin-radius;
-  box-shadow: $admin-shadow-lg;
+  background: $surface-lowest;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-float;
   min-width: 200px;
   z-index: 1050;
   animation: dropIn 0.15s ease-out;
   overflow: hidden;
+  // No border → ambient shadow provides definition
 
   .dropdown-header {
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid $admin-border;
-    font-size: 0.78rem;
-    color: $admin-text-muted;
+    // No border-bottom → tonal bg shift
+    background: $surface-low;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: $on-surface-variant;
   }
 
   .dropdown-item {
@@ -301,8 +358,9 @@ $sidebar-width: 250px;
     align-items: center;
     gap: 0.5rem;
     padding: 0.55rem 1rem;
-    color: $admin-text;
+    color: $on-surface;
     text-decoration: none;
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.85rem;
     cursor: pointer;
     transition: background 0.15s;
@@ -311,61 +369,73 @@ $sidebar-width: 250px;
     width: 100%;
     text-align: left;
 
-    &:hover { background: $admin-body-bg; }
+    &:hover { background: $surface-low; }
 
     &.text-danger {
-      color: $admin-secondary;
-      &:hover { background: #fef2f2; }
+      color: $tertiary;
+      &:hover { background: rgba($tertiary, 0.06); }
     }
   }
 }
 
 @keyframes dropIn {
   from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-// ── Content ──
+// ═══════════════════════════════════════════════════════════════════════════
+// CONTENT AREA — Tonal Layer 1 (surface-low)
+// ═══════════════════════════════════════════════════════════════════════════
 .admin-content {
   flex: 1;
   padding: 1.5rem;
+  background: $surface-low;
+  // Rounded top-left to create "molded" effect between topbar and content
+  border-radius: $radius-xl 0 0 0;
 }
 
-// ── Footer ──
+// ═══════════════════════════════════════════════════════════════════════════
+// FOOTER — No border-top → tonal shift
+// ═══════════════════════════════════════════════════════════════════════════
 .admin-footer {
   padding: 1rem 1.5rem;
-  border-top: 1px solid $admin-border;
-  font-size: 0.78rem;
-  color: $admin-text-muted;
+  background: $surface;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: $on-surface-variant;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
 
   a {
-    color: $admin-primary;
+    color: $on-primary-ctr;
     text-decoration: none;
     &:hover { text-decoration: underline; }
   }
 }
 
-// ── Sidebar Collapsed State ──
+// ═══════════════════════════════════════════════════════════════════════════
+// RESPONSIVE & STATES
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Sidebar Collapsed ──
 .sidebar-collapsed {
   .admin-sidebar {
     transform: translateX(-100%);
   }
-
   .admin-main {
     margin-left: 0;
   }
 }
 
-// ── Overlay for mobile ──
+// ── Mobile Overlay ──
 .sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba($on-surface, 0.2);
+  backdrop-filter: blur(4px);
   z-index: 1035;
 }
 
@@ -386,7 +456,6 @@ $sidebar-width: 250px;
     .admin-sidebar {
       transform: translateX(0);
     }
-
     .sidebar-overlay {
       display: block;
     }
@@ -395,8 +464,8 @@ $sidebar-width: 250px;
 
 @media (max-width: 576px) {
   .topbar-search { display: none; }
-
   .admin-content {
     padding: 1rem;
+    border-radius: $radius-lg 0 0 0;
   }
 }
