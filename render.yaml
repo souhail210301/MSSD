@@ -34,6 +34,13 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       # Database connection — wired from the PostgreSQL instance above
+      # DATABASE_URL is auto-converted in MssdApplication.main() from
+      # postgres://user:pass@host:port/db → jdbc:postgresql://host:port/db
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mssd-db
+          property: connectionString
+      # Individual PG* vars as fallback
       - key: PGHOST
         fromDatabase:
           name: mssd-db
