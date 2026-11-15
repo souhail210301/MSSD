@@ -27,8 +27,9 @@ public class MssdApplication {
                     System.setProperty("spring.datasource.username", parts[0]);
                     System.setProperty("spring.datasource.password", parts[1]);
                     // Reconstruct URL without credentials
-                    String cleanUrl = "jdbc:postgresql://" + uri.getHost() + ":" + uri.getPort() + uri.getPath();
-                    if (uri.getQuery() != null) {
+                    int port = uri.getPort() > 0 ? uri.getPort() : 5432;
+                    String cleanUrl = "jdbc:postgresql://" + uri.getHost() + ":" + port + uri.getPath();
+                    if (uri.getQuery() != null && !uri.getQuery().isEmpty()) {
                         cleanUrl += "?" + uri.getQuery();
                     }
                     System.setProperty("spring.datasource.url", cleanUrl);
